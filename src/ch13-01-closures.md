@@ -1,14 +1,15 @@
-<!-- Old heading. Do not remove or links may break. -->
-<a id="closures-anonymous-functions-that-can-capture-their-environment"></a>
+<!-- Old headings. Do not remove or links may break. -->
 
 ## Închideri: funcții anonime care captează contextul
 
 Închiderile din Rust sunt funcții anonime pe care le poți stoca într-o variabilă sau le poți folosi ca argumente în alte funcții. Poți defini o închidere într-un anumit punct și mai târziu să o apelezi într-un alt context pentru evaluare. Diferența majoră față de funcții este că închiderile pot prelua valori din domeniul de vizibilitatea (numite și context) în care au fost create. Vom arăta cum aceste posibilități ale închiderilor sporesc reutilizabilitatea codului și permit adaptarea acestuia la necesități specifice.
 
 <!-- Old headings. Do not remove or links may break. -->
+
 <a id="creating-an-abstraction-of-behavior-with-closures"></a>
 <a id="refactoring-using-functions"></a>
 <a id="refactoring-with-closures-to-store-code"></a>
+<a id="capturing-the-environment-with-closures"></a>
 
 ### Capturarea contextului cu închideri
 
@@ -138,9 +139,11 @@ Această tehnică este utilă mai ales când transmitem o închidere către un n
 Inițializăm un nou fir de execuție, pasându-i o închidere ce urmează a fi executată ca argument. Corpul închiderii afișează lista. În Listarea 13-4, închiderea a capturat doar `list` printr-o referință imutabilă, pentru că asta era tot accesul necesar pentru a tipări `list`. În exemplul prezent, deși corpul închiderii încă necesită doar o referință imutabilă, este necesar să specificăm că `list` trebuie să fie permutat în închidere, prin plasarea cuvântului cheie `move` la începutul definiției închiderii. Este posibil ca noul fir de execuție să se finalizeze înainte de a se încheia restul firului principal, sau invers. Dacă firul principal ar păstra posesiunea lui `list` și s-ar termina înaintea firului nou și ar distruge `list`, referința imutabilă din cadrul noului fir ar deveni invalidă. Așadar, compilatorul impune ca `list` să fie permutat în închiderea destinată noului fir de execuție, pentru a asigura validitatea referinței. Încearcă să elimini cuvântul cheie `move` sau să utilizezi `list` în firul principal după definirea închiderii, pentru a descoperi ce erori de compilare apar!
 
 <!-- Old headings. Do not remove or links may break. -->
+
 <a id="storing-closures-using-generic-parameters-and-the-fn-traits"></a>
 <a id="limitations-of-the-cacher-implementation"></a>
 <a id="moving-captured-values-out-of-the-closure-and-the-fn-traits"></a>
+<a id="moving-captured-values-out-of-closures-and-the-fn-traits"></a>
 
 ### Permutarea valorilor capturate din închideri și trăsăturile `Fn`
 

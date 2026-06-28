@@ -148,6 +148,5 @@ Facilitățile de testare oferite de Rust ne permit să specificăm modul în ca
 În continuare să folosim cunoștințele acumulate în acest capitol și în cele anterioare pentru a dezvolta un proiect!
 
 [paths]: ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html
-[separating-modules-into-files]:
-ch07-05-separating-modules-into-different-files.html
+[separating-modules-into-files]: ch07-05-separating-modules-into-different-files.html
 [alt-paths]: ch07-05-separating-modules-into-different-files.html#alternate-file-paths

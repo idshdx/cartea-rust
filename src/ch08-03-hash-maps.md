@@ -10,6 +10,8 @@ Hash map-urile sunt de mare ajutor atunci când dorești să accesezi datele fol
 
 Pentru a inițializa un hash map gol, putem folosi metoda `new` și apoi adăugăm elemente prin metoda `insert`. În Listarea 8-20, monitorizăm scorurile a două echipe, denumite *Blue* și *Yellow*. Echipa Blue debutează cu 10 puncte, pe când Yellow începe jocul cu 50 de puncte.
 
+<Listing number="8-20" caption="Creating a new hash map and inserting some keys and values">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-20/src/main.rs:here}}
 ```
@@ -23,6 +25,8 @@ Similar vectorilor, hash map-urile păstrează datele în heap. Acest `HashMap` 
 ### Accesul la valorile dintr-un hash map
 
 Noi putem extrage o valoare dintr-un hash map oferind cheia corespunzătoare metodei `get`, după cum se arată în Listarea 8-21.
+
+<Listing number="8-21" caption="Accessing the score for the Blue team stored in the hash map">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-21/src/main.rs:here}}
@@ -49,6 +53,8 @@ Albastru: 10
 
 Când inserăm date într-un hash map, ce se întâmplă cu acestea depinde de tipul lor. Dacă tipul de date implementează trăsătura `Copy`, cum este cazul lui `i32`, atunci valorile sunt duplicate și inserate în hash map fără a-și pierde originalul. Pe de altă parte, pentru tipuri de date cu posesiune unică, precum `String`, inserarea înseamnă transferul posesiunii: hash map-ul devine noul proprietar al acestor valori. Următoarea listare ilustrează această comportare:
 
+<Listing number="8-22" caption="Showing that keys and values are owned by the hash map once they’re inserted">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-22/src/main.rs:here}}
 ```
@@ -69,6 +75,8 @@ Când dorești să schimbi datele dintr-un hash map, trebuie să alegi cum să p
 
 Când adăugăm într-un hash map o pereche de cheie și valoare, iar mai apoi inserăm din nou aceeași cheie cu o valoare diferită, valoarea asociată cu cheia respectivă va fi înlocuită. Chiar dacă în codul prezentat în Listarea 8-23 executăm funcția `insert` de două ori, hash map-ul va conține o singură pereche de cheie și valoare, deoarece ambele inserări se referă la cheia echipei Blue.
 
+<Listing number="8-23" caption="Replacing a value stored with a particular key">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-23/src/main.rs:here}}
 ```
@@ -78,6 +86,7 @@ Când adăugăm într-un hash map o pereche de cheie și valoare, iar mai apoi i
 Acest cod va afișa rezultatul `{"Blue": 25}`. Prima valoare, `10`, a fost înlocuită cu noua valoare, `25`.
 
 <!-- Old headings. Do not remove or links may break. -->
+
 <a id="only-inserting-a-value-if-the-key-has-no-value"></a>
 
 #### Adăugarea unei chei și valori numai dacă cheia lipsește
@@ -85,6 +94,8 @@ Acest cod va afișa rezultatul `{"Blue": 25}`. Prima valoare, `10`, a fost înlo
 Un scenariu frecvent în lucrul cu hash map-uri este verificarea prezenței unei chei specifice înainte de a adăuga o valoare. Dacă cheia este deja prezentă, valoarea existentă trebuie să rămână neschimbată. În caz contrar, cheia și valoarea ei trebuie inserate în map.
 
 Pentru aceasta, hash map-urile oferă o metodă specială numită `entry`, care primește ca parametru cheia de verificat. Rezultatul metodei `entry` este o enumerare `Entry` care indică dacă o valoare există sau nu pentru acea cheie. De exemplu, dacă vrem să verificăm dacă echipa Yellow are o valoare atribuită cheii sale și, în caz negativ, să inserăm valoarea 50; procedăm similar pentru echipa Blue. Utilizând API-ul `entry`, codul arată ca în Listarea 8-24.
+
+<Listing number="8-24" caption="Using the `entry` method to only insert if the key does not already have a value">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-24/src/main.rs:here}}
@@ -130,3 +141,4 @@ Pe măsură ce programarea se complică și operațiunile pot eșua, este esenț
 
 [validating-references-with-lifetimes]: ch10-03-lifetime-syntax.html#validating-references-with-lifetimes
 [access]: #accessing-values-in-a-hash-map
+[traits]: ch10-02-traits.html

@@ -33,8 +33,9 @@ cd listings/ch11-writing-automated-tests
 rm -rf listing-11-01
 cargo new listing-11-01 --lib --name adder
 cd listing-11-01
-cargo test
-git co output.txt
+echo "$ cargo test" > output.txt
+RUSTFLAGS="-A unused_variables -A dead_code" RUST_TEST_THREADS=1 cargo test >> output.txt 2>&1
+git diff output.txt # commit any relevant changes; discard irrelevant ones
 cd ../../..
 -->
 
@@ -49,6 +50,8 @@ Pentru moment, să ignorăm primele două linii și să ne concentrăm pe funcț
 Corpul funcției exemplu folosește macro-ul `assert_eq!` pentru a afirma că `result`, care conține rezultatul adunării lui 2 cu 2, este egal cu 4. Aceasta afirmație servește ca un exemplu al formatului pentru un test tipic. Să o rulăm, pentru a vedea că acest test este valid.
 
 Comanda `cargo test` efectuează rularea tuturor testelor din cadrul proiectului nostru, așa cum vedem în Listarea 11-2.
+
+<Listing number="11-2" caption="The output from running the automatically generated test">
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/listing-11-01/output.txt}}
@@ -83,12 +86,14 @@ Adăugăm un test suplimentar, dar intenționat să eșueze. Un test este marcat
 <span class="filename">Numele fișierului: src/lib.rs</span>
 
 ```rust,panics,noplayground
-{{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-03/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-03/src/lib.rs}}
 ```
 
 <span class="caption">Listarea 11-3: Adăugarea unui test secund care va eșua prin invocarea macro-ului `panic!`</span>
 
 Relansează testele folosind `cargo test`. Output-ul ar trebui să se alinieze cu Listarea 11-4, arătând reușita testului `exploration` și eșecul testului `another`.
+
+<Listing number="11-4" caption="Test results when one test passes and one test fails">
 
 ```console
 {{#include ../listings/ch11-writing-automated-tests/listing-11-03/output.txt}}
@@ -111,7 +116,7 @@ Reamintim structura `Rectangle` și funcția ei `can_hold` prezentate în Capito
 <span class="filename">Numele fișierului: src/lib.rs</span>
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-05/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch11-writing-automated-tests/listing-11-05/src/lib.rs}}
 ```
 
 <span class="caption">Listarea 11-5: Reutilizarea structurii `Rectangle` și a metodei `can_hold`</span>
@@ -318,7 +323,7 @@ Mesajul de eroare arată că testul a cauzat o panică, cum era anticipat, îns�
 Până acum, testele create au generat panică atunci când s-au confruntat cu un eșec. O altă abordare este scrierea de teste care folosesc `Result<T, E>`. Ca exemplu, redau testul din Listarea 11-1, reconfigurat astfel încât să utilizeze `Result<T, E>` și să returneze `Err` în loc să declanșeze panică:
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-10-result-in-tests/src/lib.rs}}
+{{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-10-result-in-tests/src/lib.rs:here}}
 ```
 
 Acum, funcția `it_works` are tipul de retur `Result<(), String>`. În corpul acesteia, în loc să folosim macro-ul `assert_eq!`, vom returna `Ok(())` pentru un test reușit sau `Err` cu un `String` atașat în caz de eșec.
@@ -329,13 +334,11 @@ Adnotarea `#[should_panic]` nu poate fi folosită în testele care returnează `
 
 Având astfel mai multe metode de creare a testelor, este momentul oportun să înțelegem mai bine ce se întâmplă atunci când executăm testele și să explorăm opțiunile disponibile prin comanda `cargo test`.
 
-[concatenation-with-the--operator-or-the-format-macro]:
-ch08-02-strings.html#concatenation-with-the--operator-or-the-format-macro
+[concatenating]: ch08-02-strings.html#concatenating-with--or-format
 [bench]: ../unstable-book/library-features/test.html
-[ignoring]: ch11-02-running-tests.html#ignoring-some-tests-unless-specifically-requested
+[ignoring]: ch11-02-running-tests.html#ignoring-tests-unless-specifically-requested
 [subset]: ch11-02-running-tests.html#running-a-subset-of-tests-by-name
-[controlling-how-tests-are-run]:
-ch11-02-running-tests.html#controlling-how-tests-are-run
+[controlling-how-tests-are-run]: ch11-02-running-tests.html#controlling-how-tests-are-run
 [derivable-traits]: appendix-03-derivable-traits.html
 [doc-comments]: ch14-02-publishing-to-crates-io.html#documentation-comments-as-tests
 [paths-for-referring-to-an-item-in-the-module-tree]: ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html

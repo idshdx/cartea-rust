@@ -32,5 +32,6 @@ Dacă deschizi fișierul *Cargo.toml* într-un editor de text, vei observa că n
 
 În exemplul nostru, avem un pachet care include doar *src/main.rs*, ceea ce semnifică faptul că conține un singur crate binar numit `my-project`. Dacă un pachet ar conține atât *src/main.rs* cât și *src/lib.rs*, ar însemna că are două crate-uri: unul binar și unul de bibliotecă, ambele având același nume ca pachetul. Un pachet poate conține mai multe crate-uri binare dacă fișierele lor sunt plasate în directoriul *src/bin*: fiecare fișier reprezentând un crate binar separat.
 
+[basics]: ch01-02-hello-world.html#rust-program-basics
 [modules]: ch07-02-defining-modules-to-control-scope-and-privacy.html
 [rand]: ch02-00-guessing-game-tutorial.html#generating-a-random-number

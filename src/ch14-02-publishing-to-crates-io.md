@@ -154,7 +154,8 @@ Elaborarea unei structuri a API-ului public eficiente este mai degrabă o artă 
 Pentru a publica crate-uri, trebuie mai întâi să îți creezi un cont pe [crates.io](https://crates.io/) și să obții o cheie (token) de API. Pentru aceasta, accesează pagina principală [crates.io](https://crates.io/) și conectează-te folosind un cont de GitHub. (Deocamdată este obligatoriu să folosești un cont de GitHub, dar pe viitor s-ar putea adăuga și alte metode de înregistrare.) După autentificare, mergi la setările contului tău accesând [https://crates.io/me/](https://crates.io/me/) și copie-ți cheia API. În continuare, execută comanda `cargo login` cu cheia ta API, după cum urmează:
 
 ```console
-$ cargo login abcdefghijklmnopqrstuvwxyz012345
+$ cargo login
+abcdefghijklmnopqrstuvwxyz012345
 ```
 
 Această comandă îi va comunica lui Cargo cheia ta API și o va salva local în fișierul *~/.cargo/credentials*. Fii atent, această cheie este un *secret* și nu trebuie să o împărtășești cu nimeni. Dacă, dintr-un anumit motiv, o vei împărtăși, revoc-o și generează una nouă pe [crates.io](https://crates.io/).
@@ -175,7 +176,8 @@ name = "guessing_game"
 Dacă ai ales un nume care este unic, când rulezi comanda `cargo publish` pentru publicarea crate-ului în acest punct, vei întâmpina prima dată un avertisment, urmat de o eroare:
 
 <!-- manual-regeneration
-cd listings/ch14-more-about-cargo/listing-14-01/
+Create a new package with an unregistered name, making no further modifications
+  to the generated package, so it is missing the description and license fields.
 cargo publish
 copy just the relevant lines below
 -->
@@ -189,7 +191,7 @@ See https://doc.rust-lang.org/cargo/reference/manifest.html#package-metadata for
 error: failed to publish to registry at https://crates.io
 
 Caused by:
-  the remote server responded with an error: missing or empty metadata fields: description, license. Please see https://doc.rust-lang.org/cargo/reference/manifest.html for how to upload metadata
+  the remote server responded with an error (status 400 Bad Request): missing or empty metadata fields: description, license. Please see https://doc.rust-lang.org/cargo/reference/manifest.html for more information on configuring these fields
 ```
 
 Apare această eroare pentru că lipsesc informații cruciale: descrierea și licența sunt obligatorii, pentru ca alții să poată înțelege ce face crate-ul tău și sub ce termeni pot să-l utilizeze. În fișierul *Cargo.toml*, adaugă o descriere scurtă, de una-două propoziții, aceasta urmând să apară împreună cu crate-ul tău în rezultatele de căutare. Câmpul `license` necesită introducerea unei *valori de identificare a licenței*. Identificatorii pe care îi poți folosi pentru acest scop sunt listati de [Software Package Data Exchange (SPDX) a Fundației Linux][spdx]. De exemplu, dacă ai licențiat crate-ul cu Licența MIT, adaugi identificatorul `MIT`:
@@ -241,11 +243,17 @@ copy just the relevant lines below
 $ cargo publish
     Updating crates.io index
    Packaging guessing_game v0.1.0 (file:///projects/guessing_game)
+    Packaged 6 files, 1.2KiB (895.0B compressed)
    Verifying guessing_game v0.1.0 (file:///projects/guessing_game)
    Compiling guessing_game v0.1.0
 (file:///projects/guessing_game/target/package/guessing_game-0.1.0)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.19s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.19s
    Uploading guessing_game v0.1.0 (file:///projects/guessing_game)
+    Uploaded guessing_game v0.1.0 to registry `crates-io`
+note: waiting for `guessing_game v0.1.0` to be available at registry
+`crates-io`.
+You may press ctrl-c to skip waiting; the crate should be available shortly.
+   Published guessing_game v0.1.0 at registry `crates-io`
 ```
 
 Felicitări! Codul tău a fost acum distribuit comunității Rust, astfel încât toți pot să includă foarte ușor crate-ul tău ca dependență în proiectele lor.
@@ -278,5 +286,5 @@ $ cargo yank --vers 1.0.1 --undo
 
 O retragere *nu* implică ștergerea vreunui cod. De pildă, nu poate elimina secretele încărcate din greșeală. Dacă se întâmplă acest lucru, trebuie să resetezi imediat respectivele secrete.
 
-[spdx]: http://spdx.org/licenses/
-[semver]: http://semver.org/
+[spdx]: https://spdx.org/licenses/
+[semver]: https://semver.org/

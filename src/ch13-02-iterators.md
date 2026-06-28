@@ -4,6 +4,8 @@ Modelul iterator permite efectuarea unei anumite sarcini pe o secvență de elem
 
 În Rust, iteratorii sunt *indolenți* (lazy), adică nu produc niciun efect până nu apelezi metode care consumă iteratorul pentru utilizare. De exemplu, codul din Listarea 13-10 creează un iterator pentru elementele din vectorul `v1` prin apelarea metodei `iter`, definită pe `Vec<T>`. Acest cod în sine nu realizează nimic util.
 
+<Listing number="13-10" file-name="src/main.rs" caption="Creating an iterator">
+
 ```rust
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-10/src/main.rs:here}}
 ```
@@ -13,6 +15,8 @@ Modelul iterator permite efectuarea unei anumite sarcini pe o secvență de elem
 În variabila `v1_iter` este stocat iteratorul. După ce un iterator a fost creat, putem să-l utilizăm în diferite moduri. În Listarea 3-5 din Capitolul 3, am itinerat peste un array folosind o buclă `for` pentru a executa un cod pe fiecare element. În realitate, acest lucru a creat și consumat implicit un iterator, dar nu am detaliat cum funcționează acest proces până acum.
 
 În exemplul din Listarea 13-11, crearea iteratorului este separată de utilizarea lui în bucla `for`. Când bucla `for` folosește iteratorul `v1_iter`, fiecare element din iterator participă la o iterație a buclei, imprimând astfel fiecare valoare.
+
+<Listing number="13-11" file-name="src/main.rs" caption="Using an iterator in a `for` loop">
 
 ```rust
 {{#rustdoc_include ../listings/ch13-functional-features/listing-13-11/src/main.rs:here}}

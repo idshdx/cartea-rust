@@ -254,8 +254,7 @@ Programul a rezultat într-o eroare de *runtime* în momentul utilizării unei v
 
 Acesta este un exemplu al principiilor de siguranță ale memoriei din Rust în acțiune. În multe limbaje de nivel scăzut, verificare de acces în array nu se face, și, când furnizezi un index incorect, poate fi accesată memorie invalidă. Rust te protejează împotriva acestui fel de erori prin ieșirea imediată în loc de a permitere accesul la memorie și continuare. Capitolul 9 discută mai multe despre gestionarea erorilor în Rust și cum poți să scrii un cod lizibil și sigur, care nu face niciun fel de panică nici nu permite acces la memorie invalidă.
 
-[comparing-the-guess-to-the-secret-number]:
-ch02-00-guessing-game-tutorial.html#comparing-the-guess-to-the-secret-number
+[comparing-the-guess-to-the-secret-number]: ch02-00-guessing-game-tutorial.html#comparing-the-guess-to-the-secret-number
 [twos-complement]: https://en.wikipedia.org/wiki/Two%27s_complement
 [control-flow]: ch03-05-control-flow.html#control-flow
 [strings]: ch08-02-strings.html#storing-utf-8-encoded-text-with-strings

@@ -36,6 +36,8 @@ Iar această funcție poate fi apelată cu oricare dintre variantele enumerate:
 
 Utilizarea enum-urilor aduce și mai multe beneficii. Dacă ne gândim mai atent la tipul adreselor noastre IP, momentan nu avem o modalitate de a stoca efectiv datele adreselor IP; cunoaștem doar *tipul* acestora. Dat fiind că tocmai ai aflat despre structuri în Capitolul 5, ai putea fi tentat să soluționezi această problemă utilizând structurile, așa cum este exemplificat în Listarea 6-1.
 
+<Listing number="6-1" caption="Storing the data and `IpAddrKind` variant of an IP address using a `struct`">
+
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-01/src/main.rs:here}}
 ```
@@ -81,6 +83,8 @@ Acest cod exemplifică faptul că într-o variantă de enumerare se pot integra 
 Deși biblioteca standard posedă o definiție pentru `IpAddr`, noi avem capacitatea de a crea și utiliza propria noastră definiție pentru `IpAddr`, fără a întâlni conflicte. Aceasta deoarece nu am importat definiția provenită din biblioteca standard în domeniul nostru de vizibilitate. Profundăm discuția despre cum se importă tipuri în domeniul de vizibilitate în Capitolul 7.
 
 Să analizăm un alt exemplu de enumerare, ce poate fi găsit în Listarea 6-2. Aici observăm o diversitate mare de tipuri incluse în variantele enumerării.
+
+<Listing number="6-2" caption="A `Message` enum whose variants each store different amounts and types of values">
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-02/src/main.rs:here}}

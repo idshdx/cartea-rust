@@ -134,6 +134,7 @@ Cu aceste câteva linii de cod suplimentare în `new`, să consultăm din nou ru
 Rezultatul este mai bun: în sfîrșit avem un mesaj de eroare adecvat. Totuși, rămânem cu informații suplimentare care nu sunt necesare utilizatorilor noștri. Se pare că metoda utilizată în Listarea 9-13 nu este cea mai potrivită aici: un apel la `panic!` e mai adecvat pentru o problemă de programare decât una de utilizare, așa cum am discutat în Capitolul 9. În schimb, vom aplica o altă metodă pe care ai învățat-o în Capitolul 9—[returnarea unui `Result`][ch9-result] care indică fie succesul, fie o eroare.
 
 <!-- Old headings. Do not remove or links may break. -->
+
 <a id="returning-a-result-from-new-instead-of-calling-panic"></a>
 
 #### Returnarea unui `Result` în loc de apelarea `panic!`
@@ -157,6 +158,7 @@ Am efectuat două schimbări în corpul funcției: în loc să folosim `panic!` 
 Returnând o valoare `Err` în cadrul `Config::build`, funcția `main` poate gestiona valoarea `Result` returnată din `build` și poate încheia procesul într-o manieră mai curată în situația unei erori.
 
 <!-- Old headings. Do not remove or links may break. -->
+
 <a id="calling-confignew-and-handling-errors"></a>
 
 #### Apelarea `Config::build` și gestionarea erorilor
@@ -255,7 +257,7 @@ Fișierul *src/lib.rs* ar trebui să conțină semnăturile ilustrate în Listar
 <span class="filename">Numele fișierului: src/lib.rs</span>
 
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-13/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-13/src/lib.rs}}
 ```
 
 <span class="caption">Listarea 12-13: Transferul lui `Config` și `run` în *src/lib.rs*</span>
@@ -282,5 +284,5 @@ Să profităm de această modularitate nou dobândită prin executarea unei sarc
 [ch9-custom-types]: ch09-03-to-panic-or-not-to-panic.html#creating-custom-types-for-validation
 [ch9-error-guidelines]: ch09-03-to-panic-or-not-to-panic.html#guidelines-for-error-handling
 [ch9-result]: ch09-02-recoverable-errors-with-result.html
-[ch17]: ch17-00-oop.html
+[ch18]: ch18-00-oop.html
 [ch9-question-mark]: ch09-02-recoverable-errors-with-result.html#a-shortcut-for-propagating-errors-the--operator

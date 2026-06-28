@@ -154,8 +154,7 @@ Excelent! Ne-am creat propria variantă a unui instrument clasic și am învăț
 
 Pentru a completa acest proiect, vom explica pe scurt cum să interacționăm cu variabilele de mediu și cum să scriem pe eroare standard, ambele fiind importante atunci când dezvoltați aplicații pentru linia de comandă.
 
-[validating-references-with-lifetimes]:
-ch10-03-lifetime-syntax.html#validating-references-with-lifetimes
+[validating-references-with-lifetimes]: ch10-03-lifetime-syntax.html#validating-references-with-lifetimes
 [ch11-anatomy]: ch11-01-writing-tests.html#the-anatomy-of-a-test-function
 [ch10-lifetimes]: ch10-03-lifetime-syntax.html
 [ch3-iter]: ch03-05-control-flow.html#looping-through-a-collection-with-for

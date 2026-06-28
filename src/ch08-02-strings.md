@@ -14,6 +14,8 @@ Pe de altă parte, avem tipul `String`, oferit de biblioteca standard a limbajul
 
 Operațiunile pe care le facem cu `Vec<T>` pot fi aplicate și pe `String`, deoarece `String` este efectiv o încapsulare peste un vector de octeți, având anumite garanții suplimentare, restricții și funcționalități. Să luăm drept exemplu funcția `new`, care ne permite să creăm o nouă instanță de `String`, ilustrată în Listarea 8-11.
 
+<Listing number="8-11" caption="Creating a new, empty `String`">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-11/src/main.rs:here}}
 ```
@@ -21,6 +23,8 @@ Operațiunile pe care le facem cu `Vec<T>` pot fi aplicate și pe `String`, deoa
 <span class="caption">Listarea 8-11: Crearea unui `String` gol</span>
 
 Această linie de cod creează un `String` nou și gol, pe nume `s`, în care putem încărca date ulterior. Adesea avem date inițiale pe care dorim să le folosim pentru a popula string-ul. Pentru acest caz folosim metoda `to_string`, disponibilă pentru orice tip ce implementează trăsătura `Display`, așa cum fac literalele string. Listarea 8-12 prezintă două exemple.
+
+<Listing number="8-12" caption="Using the `to_string` method to create a `String` from a string literal">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-12/src/main.rs:here}}
@@ -32,6 +36,8 @@ Codul de mai sus generează un string ce conține textul `initial contents`.
 
 Putem folosi, de asemenea, funcția `String::from` pentru a crea un `String` pornind de la un literal string. Codul din Listarea 8-13 este similar celui din Listarea 8-12, care a utilizat `to_string`.
 
+<Listing number="8-13" caption="Using the `String::from` function to create a `String` from a string literal">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-13/src/main.rs:here}}
 ```
@@ -41,6 +47,8 @@ Putem folosi, de asemenea, funcția `String::from` pentru a crea un `String` por
 Având în vedere numărul mare de aplicații ale string-urilor, există multe API-uri generice pentru lucrul cu acestea, oferindu-ne o varietate mare de opțiuni. Unele dintre acestea par redundante, dar fiecare își are rostul său! În acest caz, `String::from` și `to_string` îndeplinesc aceeași funcție, astfel alegerea dintre cele două este bazată mai mult pe preferințe de stil și claritate.
 
 Rețineți că string-urile sunt codate în UTF-8, astfel orice date codate adecvat pot fi inclusă în acestea, așa cum este demonstrat în Listarea 8-14.
+
+<Listing number="8-14" caption="Storing greetings in different languages in strings">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-14/src/main.rs:here}}
@@ -58,6 +66,8 @@ Un `String` poate să se extindă și să-și schimbe conținutul, similar cu `V
 
 Un `String` poate fi mărit adăugând o secțiune de string cu ajutorul metodei `push_str`, așa cum vedem în Listarea 8-15.
 
+<Listing number="8-15" caption="Appending a string slice to a `String` using the `push_str` method">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-15/src/main.rs:here}}
 ```
@@ -65,6 +75,8 @@ Un `String` poate fi mărit adăugând o secțiune de string cu ajutorul metodei
 <span class="caption">Listarea 8-15: Adăugarea unei secțiuni de string la un `String` cu `push_str`</span>
 
 După aceste operațiuni, `s` va conține `foobar`. Metoda `push_str` primește o secțiune de string pentru că nu dorește, de obicei, să preia controlul acestuia. De exemplu, în exemplul din Listarea 8-16, vrem ca `s2` să fie utilizabil și după ce l-am concatenat cu `s1`.
+
+<Listing number="8-16" caption="Using a string slice after appending its contents to a `String`">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-16/src/main.rs:here}}
@@ -75,6 +87,8 @@ După aceste operațiuni, `s` va conține `foobar`. Metoda `push_str` primește 
 Dacă metoda `push_str` ar fi solicitat posesiunea asupra lui `s2`, nu am fi putut afișa valoarea acestuia la sfârșit. Însă, codul funcționează cum ne-am așteptat!
 
 Metoda `push` acceptă un caracter și îl adaugă la `String`. În Listarea 8-17, adăugăm litera "l" la un `String` folosind `push`.
+
+<Listing number="8-17" caption="Adding one character to a `String` value using `push`">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-17/src/main.rs:here}}
@@ -87,6 +101,8 @@ Rezultatul va fi că `s` va conține `lol`.
 #### Concatenarea cu operatorul `+` sau macro-ul `format!`
 
 Adesea, ai nevoie să unifici două string-uri existente. Poți face asta folosind operatorul `+`, cum este arătat în Listarea 8-18.
+
+<Listing number="8-18" caption="Using the `+` operator to combine two `String` values into a new `String` value">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-18/src/main.rs:here}}
@@ -125,6 +141,8 @@ Acest fragment de cod atribuie tot `tic-tac-toe` pentru `s`. Macro-ul `format!`,
 ### Accesarea elementelor unui string prin index
 
 Accesul la caracterele unui string folosind indexul lor este o practică obișnuită în multe limbaje de programare. Cu toate acestea, în Rust, încercarea de a accesa elemente dintr-un `String` prin indexare va genera o eroare. Iată codul incorect prezentat în Listarea 8-19.
+
+<Listing number="8-19" caption="Attempting to use indexing syntax with a `String`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-19/src/main.rs:here}}

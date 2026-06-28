@@ -16,7 +16,7 @@ Adăugarea `use` și a unei căi într-un domeniu este similară cu operațiunea
 
 Trebuie să ținem minte că `use` creează o scurtătură doar în cadrul specific al domeniului de vizibilitate în care este folosit. Listarea 7-12 plasează funcția `eat_at_restaurant` într-un nou submodul numit `customer`. Acesta reprezintă un domeniu diferit de cel al declarației `use`, așa că funcția nu va putea fi compilată:
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="7-12" file-name="src/lib.rs" caption="A `use` statement only applies in the scope it’s in.">
 
 ```rust,noplayground,test_harness,does_not_compile,ignore
 {{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-12/src/lib.rs}}
@@ -192,6 +192,6 @@ Această instrucțiune `use` face ca toate elementele publice definite în `std:
 
 De obicei, utilizăm operatorul `*` atunci când realizăm teste pentru a include totul în modulul `tests`. Vom aborda acest subiect în secțiunea [„Cum să scriem teste”][writing-tests]<!-- ignore --> din Capitolul 11. De asemenea, uneori operatorul `*` face parte din pattern-ul 'preludiu'. Poți accesa [documentația bibliotecii standard](../std/prelude/index.html#other-preludes)<!-- ignore --> pentru a afla mai multe detalii despre acest pattern.
 
-[ch14-pub-use]: ch14-02-publishing-to-crates-io.html#exporting-a-convenient-public-api-with-pub-use
+[ch14-pub-use]: ch14-02-publishing-to-crates-io.html#exporting-a-convenient-public-api
 [rand]: ch02-00-guessing-game-tutorial.html#generating-a-random-number
 [writing-tests]: ch11-01-writing-tests.html#how-to-write-tests

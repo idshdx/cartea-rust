@@ -113,6 +113,7 @@ Notă: nu este posibil să apelăm implementarea implicită din cadrul unei impl
 În loc de un tip explicit pentru parametrul `item`, specificăm cuvântul cheie `impl` și numele trăsăturii. Acest parametru va accepta orice tip care implementează trăsătura indicată. În cadrul funcției `notify`, avem posibilitatea să apelăm orice metode asociate cu `item` ce derivă din trăsătura `Summary`, precum `summarize`. Funcția `notify` poate fi apelată utilizând orice exemplar de `NewsArticle` sau `Tweet`. Încercarea de a folosi funcția cu tipuri care nu implementează `Summary`, cum ar fi `String` sau `i32`, nu va fi compilată, deoarece aceste tipuri nu îndeplinesc cerința trăsăturii `Summary`.
 
 <!-- Old headings. Do not remove or links may break. -->
+
 <a id="fixing-the-largest-function-with-trait-bounds"></a>
 
 #### Sintaxa delimitării de trăsături
@@ -223,5 +224,5 @@ Implementările generalizate pot fi găsite în documentația referitoare la tr�
 
 Trăsăturile și delimitările de trăsături ne permit să concepem cod care utilizează parametrii de tip generic pentru a reduce dublarea, dar ne și permit să indicăm compilatorului că dorim ca tipul generic să prezinte un anumit comportament. Compilatorul, folosind informațiile delimitărilor de trăsături, poate verifica dacă toate tipurile concrete folosite în codul nostru corespund comportamentului cerut. În limbajele de programare cu tipizare dinamică, erorile legate de apeluri ale unor metode nedefinite pe un tip apar la runtime, pe când Rust transferă aceste erori la timpul de compilare, obligându-ne să rezolvăm problemele înainte ca programul nostru să fie capabil să ruleze. Mai mult, evităm necesitatea de a scrie cod care să verifice comportamentul la runtime deoarece verificările au loc în timpul compilării. Acest proces îmbunătățește performanța fără a renunța la flexibilitatea oferită de utilizarea genericilor.
 
-[using-trait-objects-that-allow-for-values-of-different-types]: ch17-02-trait-objects.html#using-trait-objects-that-allow-for-values-of-different-types
-[methods]: ch05-03-method-syntax.html#defining-methods
+[trait-objects]: ch18-02-trait-objects.html#using-trait-objects-to-abstract-over-shared-behavior
+[methods]: ch05-03-method-syntax.html#method-syntax

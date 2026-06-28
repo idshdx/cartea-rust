@@ -24,4 +24,4 @@ Vom face, de asemenea, o trecere rapidă prin conceptul de închideri, iteratori
 [ch10]: ch10-00-generics.html
 [ch11]: ch11-00-testing.html
 [ch13]: ch13-00-functional-features.html
-[ch17]: ch17-00-oop.html
+[ch18]: ch18-00-oop.html

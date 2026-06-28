@@ -157,7 +157,8 @@ Avem următoarea eroare de compilare:
 
 Luați în considerare regulile de împrumutare: dacă avem o referință imutabilă la un anumit element, nu putem obține, în același timp, și o referință mutabilă la acel element. Funcția `clear` are nevoie să trunchieze o variabilă de tip `String`, deci trebuie să obțină o referință mutabilă la aceasta. Funcția `println!`, care urmează după apelul la `clear`, utilizează referința la variabila `word`. Deci, referința imutabilă utilizată de `println!` trebuie să fie încă activă la momentul acela. Cu toate acestea, limbajul Rust nu permite ca o referință mutabilă (utilizată în `clear`) și o referință imutabilă (utilizată în `word`) să existe simultan, fapt care conduce la eșecul compilării. Acesta este un exemplu de cum Rust nu doar că face API-ul nostru mai ușor de utilizat, dar elimină eficient și o întreagă clasă de erori chiar în timpul compilării!
 
-<!-- Old heading. Do not remove or links may break. -->
+<!-- Old headings. Do not remove or links may break. -->
+
 <a id="string-literals-are-slices"></a>
 
 #### Literalii de string ca secțiuni
@@ -179,6 +180,8 @@ fn first_word(s: &String) -> &str {
 ```
 
 Un programator Rust mai experimentat ar opta pentru semnătura de tip prezentată în Listarea 4-9, deoarece aceasta ne permite să utilizăm aceeași funcție atât pentru valorile `&String`, cât și pentru cele `&str`.
+
+<Listing number="4-9" caption="Improving the `first_word` function by using a string slice for the type of the `s` parameter">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-09/src/main.rs:here}}
@@ -226,4 +229,4 @@ Posesiunea influențează modul în care funcționează multe alte componente al
 [ch13]: ch13-02-iterators.html
 [ch6]: ch06-02-match.html#patterns-that-bind-to-values
 [strings]: ch08-02-strings.html#storing-utf-8-encoded-text-with-strings
-[deref-coercions]: ch15-02-deref.html#implicit-deref-coercions-with-functions-and-methods
+[deref-coercions]: ch15-02-deref.html#using-deref-coercions-in-functions-and-methods

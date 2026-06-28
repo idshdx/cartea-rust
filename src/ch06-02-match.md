@@ -1,4 +1,5 @@
-<!-- Old heading. Do not remove or links may break. -->
+<!-- Old headings. Do not remove or links may break. -->
+
 <a id="the-match-control-flow-operator"></a>
 ## Structura de control `match`
 
@@ -7,6 +8,8 @@ Rust dispune de o structură de control extrem de puternică numită `match`, ca
 O expresie `match` poate fi înțeleasă ca o mașină de sortat monede: monedele alunecă pe o pistă cu găuri de diferite mărimi iar fiecare monedă cade prin prima gaură în care se încadrează. Similar, valorile parcurg fiecare șablon într-un `match`, iar la primul șablon unde valoarea se "potrivește", ea este redirecționată în blocul de cod asociat pentru a fi utilizat în timpul execuției.
 
 Luând exemplul monedelor, putem crea o funcție care primește o monedă necunoscută din SUA și, asemenea mașinii de numărat, determină tipul monedei și returnează valoarea acesteia în cenți, așa cum se arată în Listarea 6-3.
+
+<Listing number="6-3" caption="An enum and a `match` expression that has the variants of the enum as its patterns">
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-03/src/main.rs:here}}
@@ -34,6 +37,8 @@ O altă particularitate valoroasă a segmentelor `match` este că ele pot încor
 
 Pentru exemplificare, modificăm una dintre variantele enumerării noastre, astfel încât să cuprindă date. În perioada 1999 - 2008, Statele Unite ale Americii au emis monede "quarter" personalizate, cu design-uri distincte pentru fiecare dintre cele 50 de state. Niciun alt tip de monedă nu a primit acest tratament special, de aceea doar "quarter"-urile au această extra valoare. Putem îngloba această informație în enumerarea noastră prin modificarea variantei `Quarter`, astfel încât să includă o valoare `UsState` în interiorul ei, așa cum am făcut în Listarea 6-4.
 
+<Listing number="6-4" caption="A `Coin` enum in which the `Quarter` variant also holds a `UsState` value">
+
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-04/src/main.rs:here}}
 ```
@@ -57,6 +62,8 @@ Dacă am apela `value_in_cents(Coin::Quarter(UsState::Alaska))`, `coin` ar fi `C
 Consideră că avem nevoie de o funcție care acceptă ca parametru o structură `Option<i32>`. Rolul ei este de a adaugă 1 la valoarea conținută, dacă aceasta există. În caz negativ, funcția nu ar trebui să execute nicio operație și să returneze `None`.
 
 Având la dispoziție expresia `match`, implementarea funcției devine extrem de simplă și intuitivă, asemenea exemplelor prezentate în Lista 6-5.
+
+<Listing number="6-5" caption="A function that uses a `match` expression on an `Option<i32>`">
 
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-05/src/main.rs:here}}
@@ -137,4 +144,4 @@ Aici, clarificăm explicit că nu intenționăm să folosim orice altă valoare 
 Vom aprofunda modul în care funcționează șabloanele și mecanismul de potrivire a acestora în [Capitolul 18][ch18-00-patterns]<!-- ignore -->. Deocamdată, ne vom concentra pe sintaxa `if let`, utilă în situațiile în care expresia `match` pare a fi prea stufoasă.
 
 [tuples]: ch03-02-data-types.html#the-tuple-type
-[ch18-00-patterns]: ch18-00-patterns.html
+[ch19-00-patterns]: ch19-00-patterns.html

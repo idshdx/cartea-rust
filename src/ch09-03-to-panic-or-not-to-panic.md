@@ -44,6 +44,8 @@ Să explorăm cum putem utiliza sistemul de tipuri din Rust pentru a ne asigura 
 
 Un mod de a implementa acest lucru ar fi prin parsarea ghicirii ca un `i32`, care permite numere negative, și adăugarea unei verificări care să confirme că numărul se află în intervalul dorit:
 
+<Listing file-name="src/main.rs">
+
 ```rust,ignore
 {{#rustdoc_include ../listings/ch09-error-handling/no-listing-09-guess-out-of-range/src/main.rs:here}}
 ```
@@ -54,13 +56,10 @@ Cu toate acestea, soluția nu este optimă într-un context în care este critic
 
 Ca alternativă, am putea defini un tip nou și să centralizăm validările într-o funcție dedicată creării de instanțe ale acestui tip, evitând astfel repetarea validărilor. Astfel, este sigur de utilizat noul tip în semnăturile funcțiilor, care ar putea opera cu încredere folosind valorile primite. În Listarea 9-13, prezentăm o metodă de a defini un tip `Guess`, care va crea o instanță validă a acestuia numai dacă funcția `new` este invocată cu o valoare între 1 și 100.
 
-<!-- Deliberately not using rustdoc_include here; the `main` function in the
-file requires the `rand` crate. We do want to include it for reader
-experimentation purposes, but don't want to include it for rustdoc testing
-purposes. -->
+<Listing number="9-13" caption="A `Guess` type that will only continue with values between 1 and 100" file-name="src/guessing_game.rs">
 
 ```rust
-{{#include ../listings/ch09-error-handling/listing-09-13/src/main.rs:here}}
+{{#rustdoc_include ../listings/ch09-error-handling/listing-09-13/src/guessing_game.rs}}
 ```
 
 <span class="caption">Listarea 9-13: Tipul `Guess` ce acceptă numai valorile între 1 și 100</span>
@@ -79,4 +78,4 @@ Capacitățile de gestionare a erorilor din Rust sunt concepute pentru a sprijin
 
 Având în vedere utilizările benefice ale genericilor în enum-urile `Option` și `Result` de către biblioteca standard, vom discuta în continuare despre funcționarea genericilor și modul în care pot fi implementați în codul tău.
 
-[encoding]: ch17-03-oo-design-patterns.html#encoding-states-and-behavior-as-types
+[encoding]: ch18-03-oo-design-patterns.html#encoding-states-and-behavior-as-types

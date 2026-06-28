@@ -35,6 +35,8 @@ Variabila `x` nu "durează" suficient de mult. Aceasta iese din domeniul de vizi
 
 Compilatorul Rust beneficiază de un *verificator de împrumut* care evaluează domeniile de vizibilitate și stabilește dacă toate împrumuturile sunt conforme. Listarea 10-17 îți prezintă același cod ca Listarea 10-16, dar cu adnotări ce indică durata de viață a variabilelor.
 
+<Listing number="10-17" caption="Annotations of the lifetimes of `r` and `x`, named `'a` and `'b`, respectively">
+
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch10-generic-types-traits-and-lifetimes/listing-10-17/src/main.rs}}
 ```
@@ -340,8 +342,6 @@ Am abordat numeroase subiecte în acest capitol! Ești acum înarmat cu cunoști
 
 Este uimitor cât de multe mai sunt de învățat pe temele pe care le-am parcurs: Capitolul 17 se concentrează pe obiectele-trăsătură, oferindu-ți o nouă perspectivă asupra utilizării trăsăturilor. De asemenea, vei descoperi scenarii mai complexe ce implică adnotările de durată de viață, relevante îndeosebi în cazuri avansate; pentru aceste situații, recomandăm consultarea [Rust Reference][reference]. Dar înainte de aceasta, vei învăța cum să elaborezi testele în Rust, pentru a confirma că programul tău se comportă exact cum trebuie.
 
-[references-and-borrowing]:
-ch04-02-references-and-borrowing.html#references-and-borrowing
-[string-slices-as-parameters]:
-ch04-03-slices.html#string-slices-as-parameters
-[reference]: ../reference/index.html
+[references-and-borrowing]: ch04-02-references-and-borrowing.html#references-and-borrowing
+[string-slices-as-parameters]: ch04-03-slices.html#string-slices-as-parameters
+[reference]: ../reference/trait-bounds.html

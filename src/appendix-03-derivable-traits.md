@@ -89,10 +89,7 @@ Funcția `Default::default` este folosită în mod obișnuit în combinație cu 
 
 Trăsătura `Default` este necesară când folosești metoda `unwrap_or_default` pe instanțe `Option<T>`, de exemplu. Dacă `Option<T>` este `None`, metoda `unwrap_or_default` va returna rezultatul `Default::default` pentru tipul `T` stocat în `Option<T>`.
 
-[creating-instances-from-other-instances-with-struct-update-syntax]:
-ch05-01-defining-structs.html#creating-instances-from-other-instances-with-struct-update-syntax
-[stack-only-data-copy]:
-ch04-01-what-is-ownership.html#stack-only-data-copy
-[ways-variables-and-data-interact-clone]:
-ch04-01-what-is-ownership.html#ways-variables-and-data-interact-clone
-[macros]: ch19-06-macros.html#macros
+[creating-instances-from-other-instances-with-struct-update-syntax]: ch05-01-defining-structs.html#creating-instances-from-other-instances-with-struct-update-syntax
+[stack-only-data-copy]: ch04-01-what-is-ownership.html#stack-only-data-copy
+[variables-and-data-interacting-with-clone]: ch04-01-what-is-ownership.html#variables-and-data-interacting-with-clone
+[custom-derive-macros]: ch20-05-macros.html#custom-derive-macros

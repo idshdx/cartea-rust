@@ -102,7 +102,7 @@ Uneori, anumite teste pot fi extrem de consumatoare de timp atunci când sunt ex
 <span class="filename">Numele fișierului: src/lib.rs</span>
 
 ```rust,noplayground
-{{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-11-ignore-a-test/src/lib.rs}}
+{{#rustdoc_include ../listings/ch11-writing-automated-tests/no-listing-11-ignore-a-test/src/lib.rs:here}}
 ```
 
 În urma adnotării `#[test]` adăugăm `#[ignore]` pentru testul pe care dorim să îl omitem. Acum, când executăm testările, `it_works` se execută, în timp ce `expensive_test` nu:

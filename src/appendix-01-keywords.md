@@ -62,19 +62,20 @@ prezentată.
 Următoarele cuvinte cheie nu au încă nicio funcționalitate, dar sunt rezervate de
 Rust pentru o potențială utilizare în viitor.
 
-* `abstract`
-* `become`
-* `box`
-* `do`
-* `final`
-* `macro`
-* `override`
-* `priv`
-* `try`
-* `typeof`
-* `unsized`
-* `virtual`
-* `yield`
+- `abstract`
+- `become`
+- `box`
+- `do`
+- `final`
+- `gen`
+- `macro`
+- `override`
+- `priv`
+- `try`
+- `typeof`
+- `unsized`
+- `virtual`
+- `yield`
 
 ### Identificatori bruți
 

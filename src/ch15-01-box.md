@@ -136,4 +136,4 @@ Boxele oferă doar indirectare și alocarea memoriei pe heap; ele nu dispun de a
 
 Tipul `Box<T>` este considerat un pointer inteligent deoarece implementează trăsătura `Deref`, ceea ce îi permite lui `Box<T>` să fie tratat ca o referință. Când o valoare de tip `Box<T>` iese din domeniul de vizibilitate, datele de pe heap la care indică boxa sunt și ele eliberate, datorită implementării trăsăturii `Drop`. Aceste două trăsături sunt și mai importante pentru funcționalitățile oferite de celelalte tipuri de pointeri inteligenți pe care le vom discuta în restul capitolului. Să ne aprofundăm cunoștințele despre aceste două trăsături.
 
-[trait-objects]: ch17-02-trait-objects.html#using-trait-objects-that-allow-for-values-of-different-types
+[trait-objects]: ch18-02-trait-objects.html#using-trait-objects-to-abstract-over-shared-behavior

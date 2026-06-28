@@ -11,8 +11,8 @@ Câteva [traduceri][translations] realizate de comunitate sunt de asemenea dispo
 Textul (în engleză) este de asemenea disponibil în [format paperback și ebook de la No Starch Press][nsprust].
 
 [install]: ch01-01-installation.html
-[editions]: appendix-05-editions.html
-[nsprust]: https://nostarch.com/rust-programming-language-2nd-edition
+[appendix-e]: appendix-05-editions.html
+[nsprust]: https://nostarch.com/rust-programming-language-3rd-edition
 [translations]: appendix-06-translation.html
 
 > **🚨 Îți dorești o experiență de învățare mai interactivă? Încearcă o versiune

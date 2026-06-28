@@ -57,6 +57,7 @@ Deși nu este întotdeauna cazul, frecvent, atunci când atribuim unei metode ac
 > metode sunt echivalente:
 >
 > <!-- CAN'T EXTRACT SEE BUG https://github.com/rust-lang/mdBook/issues/1127 -->
+>
 > ```rust
 > # #[derive(Debug,Copy,Clone)]
 > # struct Point {
@@ -138,6 +139,8 @@ Pentru a invoca această funcție asociată, utilizăm sintaxa `::` împreună c
 Fiecare structură are permisiunea de a avea mai multe blocuri `impl`. De exemplu, codul din Listarea 5-15 corespunde cu cel prezentat în Listarea 5-16, unde fiecare metodă este separată în propriul său bloc `impl`.
 
 
+<Listing number="5-16" caption="Rewriting Listing 5-15 using multiple `impl` blocks">
+
 ```rust
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-16/src/main.rs:here}}
 ```
@@ -154,6 +157,6 @@ Structurile permit crearea tipurilor personalizate relevante pentru domeniul în
 Totuși, structurile nu sunt singura metodă de a crea tipuri personalizate: să ne îndreptăm atenția către caracteristica `enum` a limbajului Rust pentru a adăuga un nou instrument în trusa ta de unelte.
 
 [enums]: ch06-00-enums.html
-[trait-objects]: ch17-02-trait-objects.md
+[trait-objects]: ch18-02-trait-objects.md
 [public]: ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html#exposing-paths-with-the-pub-keyword
 [modules]: ch07-02-defining-modules-to-control-scope-and-privacy.html

@@ -2,6 +2,8 @@
 
 Sintaxa `if let` îți oferă posibilitatea de a combina `if` și `let` pentru a manipula, într-un mod mai concis, valorile care corespund unui anumit șablon, ignorând în același timp restul. Ia în considerare programul din Listarea 6-6, care creează o potrivire pentru o valoare `Option<u8>` în variabila `config_max`, dar care intenționează să execute codul doar dacă valoarea este variantă `Some`.
 
+<Listing number="6-6" caption="A `match` that only cares about executing code when the value is `Some`">
+
 ```rust
 {{#rustdoc_include ../listings/ch06-enums-and-pattern-matching/listing-06-06/src/main.rs:here}}
 ```

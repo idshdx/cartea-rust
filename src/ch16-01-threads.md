@@ -165,7 +165,7 @@ help: to force the closure to take ownership of `v` (and any other referenced va
 
 Prin adăugarea cuvântului cheie `move` în fața închiderii, obligăm închiderea să preia posesiunea asupra valorilor pe care le utilizează, în loc de a-l lăsa pe Rust să facă inferențe despre împrumutarea acestora. Modificările efectuate în Listarea 16-3, reprezentate în Listarea 16-5, vor permite compilarea și executarea codului așa cum intenționam:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="16-5" file-name="src/main.rs" caption="Using the `move` keyword to force a closure to take ownership of the values it uses">
 
 ```rust
 {{#rustdoc_include ../listings/ch16-fearless-concurrency/listing-16-05/src/main.rs}}

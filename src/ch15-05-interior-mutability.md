@@ -59,7 +59,7 @@ Să ne uităm la scenariul pe care urmează să-l testăm: vom construi o libră
 
 Librăria va oferi exclusiv funcții de monitorizare a distanței față de valoarea maximă și de stabilire a mesajelor care trebuie transmise și în ce momente. Se așteaptă ca aplicațiile care folosesc librăria să implementeze mecanismul de trimitere a acestor mesaje: fie că e vorba de integrarea unui mesaj în aplicație, expedierea unui email, trimiterea unui mesaj text sau orice altă metodă. Nu este necesar ca librăria să fie la curent cu aceste detalii. Tot ce necesită este o implementare a trăsăturii pe care o vom oferi și pe care o numim `Messenger`. Listarea 15-20 ilustrează codul acestei biblioteci:
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="15-20" file-name="src/lib.rs" caption="A library to keep track of how close a value is to a maximum value and warn when the value is at certain levels">
 
 ```rust,noplayground
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-20/src/lib.rs}}
@@ -71,7 +71,7 @@ Un aspect esențial al acestui cod este faptul că trăsătura `Messenger` are o
 
 Avem nevoie de un mock object care, în loc să trimită un email sau un mesaj text când se apelează metoda `send`, să înregistreze doar mesajele pe care e solicitat să le trimită. Putem crea un exemplar nou al obiectului mock, iniția un `LimitTracker` care folosește acest mock, invoca metoda `set_value` pe `LimitTracker` și apoi să verificăm dacă obiectul mock conține mesajele pe care le anticipăm. Listarea 15-21 prezintă o tentativă de implementare a unui obiect mock în acest sens, însă verificatorul de împrumut nu permite acest lucru:
 
-<span class="filename">Filename: src/lib.rs</span>
+<Listing number="15-21" file-name="src/lib.rs" caption="An attempt to implement a `MockMessenger` that isn’t allowed by the borrow checker">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-21/src/lib.rs:here}}

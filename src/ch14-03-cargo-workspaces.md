@@ -16,13 +16,14 @@ Ulterior, în directoriul *add*, vom crea fișierul *Cargo.toml*, care va stabil
 <span class="filename">Numele fișierului: Cargo.toml</span>
 
 ```toml
-{{#include ../listings/ch14-more-about-cargo/no-listing-01-workspace-with-adder-crate/add/Cargo.toml}}
+{{#include ../listings/ch14-more-about-cargo/no-listing-01-workspace/add/Cargo.toml}}
 ```
 
 În pasul următor, vom crea crate-ul binar `adder`, executând `cargo new` în directoriul *add*:
 
 <!-- manual-regeneration
 cd listings/ch14-more-about-cargo/output-only-01-adder-crate/add
+remove `members = ["adder"]` from Cargo.toml
 rm -rf adder
 cargo new adder
 copy output below
@@ -31,6 +32,15 @@ copy output below
 ```console
 $ cargo new adder
      Created binary (application) `adder` package
+      Adding `adder` as member of workspace at `file:///projects/add`
+```
+
+Running `cargo new` inside a workspace also automatically adds the newly created
+package to the `members` key in the `[workspace]` definition in the workspace
+_Cargo.toml_, like this:
+
+```toml
+{{#include ../listings/ch14-more-about-cargo/output-only-01-adder-crate/add/Cargo.toml}}
 ```
 
 Acum putem construi workspace-ul executând `cargo build`. Fișierele din directoriul *add* ar trebui să aibă următoarea structură:
@@ -61,6 +71,7 @@ Apoi generăm un nou crate de tip bibliotecă denumit `add_one`:
 
 <!-- manual-regeneration
 cd listings/ch14-more-about-cargo/output-only-02-add-one/add
+remove `"add_one"` from `members` list in Cargo.toml
 rm -rf add_one
 cargo new add_one --lib
 copy output below
@@ -69,6 +80,7 @@ copy output below
 ```console
 $ cargo new add_one --lib
      Created library `add_one` package
+      Adding `add_one` as member of workspace at `file:///projects/add`
 ```
 
 Directorul nostru *add* ar trebui acum să conțină aceste directoare și fișiere:
@@ -127,7 +139,7 @@ copy output below; the output updating script doesn't handle subdirectories in p
 $ cargo build
    Compiling add_one v0.1.0 (file:///projects/add/add_one)
    Compiling adder v0.1.0 (file:///projects/add/adder)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.68s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.22s
 ```
 
 Pentru a executa crate-ul binar din directorul *add*, putem preciza pachetul din zona de lucru pe care dorim să îl rulăm folosind argumentul `-p` și numele pachetului împreună cu `cargo run`:
@@ -140,7 +152,7 @@ copy output below; the output updating script doesn't handle subdirectories in p
 
 ```console
 $ cargo run -p adder
-    Finished dev [unoptimized + debuginfo] target(s) in 0.0s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.00s
      Running `target/debug/adder`
 Hello, world! 10 plus one is 11!
 ```
@@ -186,9 +198,9 @@ warning: unused import: `rand`
   |
   = note: `#[warn(unused_imports)]` on by default
 
-warning: `add_one` (lib) generated 1 warning
+warning: `add_one` (lib) generated 1 warning (run `cargo fix --lib -p add_one` to apply 1 suggestion)
    Compiling adder v0.1.0 (file:///projects/add/adder)
-    Finished dev [unoptimized + debuginfo] target(s) in 10.18s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.95s
 ```
 
 Fișierul *Cargo.lock* de la nivelul cel mai de sus conține acum informații despre faptul că `add_one` depinde de `rand`. Totuși, chiar dacă `rand` este folosit în unele părți ale workspace-ului, nu va putea fi utilizat în alte crate-uri decât dacă adăugăm `rand` și în fișierele lor *Cargo.toml*. De exemplu, introducerea `use rand;` în fișierul *adder/src/main.rs* al pachetului `adder` va conduce la o eroare:
@@ -235,15 +247,15 @@ paths properly
 $ cargo test
    Compiling add_one v0.1.0 (file:///projects/add/add_one)
    Compiling adder v0.1.0 (file:///projects/add/adder)
-    Finished test [unoptimized + debuginfo] target(s) in 0.27s
-     Running unittests src/lib.rs (target/debug/deps/add_one-f0253159197f7841)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.20s
+     Running unittests src/lib.rs (target/debug/deps/add_one-93c49ee75dc46543)
 
 running 1 test
 test tests::it_works ... ok
 
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 
-     Running unittests src/main.rs (target/debug/deps/adder-49979ff40686fa8e)
+     Running unittests src/main.rs (target/debug/deps/adder-3a47283c568d2b6a)
 
 running 0 tests
 
@@ -268,8 +280,8 @@ copy output below; the output updating script doesn't handle subdirectories in p
 
 ```console
 $ cargo test -p add_one
-    Finished test [unoptimized + debuginfo] target(s) in 0.00s
-     Running unittests src/lib.rs (target/debug/deps/add_one-b3235fea9a156f74)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.00s
+     Running unittests src/lib.rs (target/debug/deps/add_one-93c49ee75dc46543)
 
 running 1 test
 test tests::it_works ... ok

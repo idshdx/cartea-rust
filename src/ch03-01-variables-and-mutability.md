@@ -101,8 +101,7 @@ Eroarea spune că nu avem voie să modificăm tipul unei variabile:
 
 Acum că am explorat cum funcționează variabilele, să examinăm mai multe tipuri de date pe care le pot avea.
 
-[comparing-the-guess-to-the-secret-number]:
-ch02-00-guessing-game-tutorial.html#comparing-the-guess-to-the-secret-number
+[comparing-the-guess-to-the-secret-number]: ch02-00-guessing-game-tutorial.html#comparing-the-guess-to-the-secret-number
 [data-types]: ch03-02-data-types.html#data-types
 [storing-values-with-variables]: ch02-00-guessing-game-tutorial.html#storing-values-with-variables
 [const-eval]: ../reference/const_eval.html

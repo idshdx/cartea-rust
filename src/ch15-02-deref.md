@@ -15,7 +15,7 @@ Să începem prin a examina modul în care operatorul de dereferențiere funcți
 
 Un referință obișnuită este un fel de pointer, și putem gândi un pointer ca fiind o săgeată ce arată spre o valoare păstrată altundeva. În Listarea 15-6, inițiem o referință la o valoare `i32` și apoi aplicăm operatorul de dereferențiere pentru a ajunge la valoarea la care face referința:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="15-6" file-name="src/main.rs" caption="Using the dereference operator to follow a reference to an `i32` value">
 
 ```rust
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-06/src/main.rs}}
@@ -65,7 +65,7 @@ Definim un struct cu numele `MyBox` și declarăm un parametru generic `T`, deoa
 
 Să încercăm să adăugăm funcția `main` din Listarea 15-7 la Listarea 15-8 și să o schimbăm pentru a folosi tipul `MyBox<T>` definiț de noi, în loc de `Box<T>`. Codul din Listarea 15-9 nu va compila deoarece Rust nu recunoaște cum să dereferențieze `MyBox`.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="15-9" file-name="src/main.rs" caption="Attempting to use `MyBox<T>` in the same way we used references and `Box<T>`">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-09/src/main.rs:here}}

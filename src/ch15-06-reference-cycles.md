@@ -9,7 +9,7 @@ Să vedem cum se poate forma un ciclu de referințe și cum să îl evităm, în
 <span class="filename">Numele fișierului: src/main.rs</span>
 
 ```rust
-{{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-25/src/main.rs}}
+{{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-25/src/main.rs:here}}
 ```
 
 <span class="caption">Listarea 15-25: Definiție pentru o listă de tip cons care include un `RefCell<T>` ce ne permite să modificăm la ce anume se referă o variantă `Cons`</span>

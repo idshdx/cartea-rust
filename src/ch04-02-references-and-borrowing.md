@@ -74,7 +74,7 @@ Putem corecta codul din Listarea 4-6 pentru a ne oferi posibilitatea de a modifi
 
 Referințele mutabile vin însă cu o limitare importantă: dacă deții o referință mutabilă la o valoare, nu poți deține alte referințe către aceeași valoare. Acest cod, care încearcă să creeze două referințe mutabile la `s`, va da eroare:
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing file-name="src/main.rs">
 
 ```rust,ignore,does_not_compile
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-10-multiple-mut-not-allowed/src/main.rs:here}}
@@ -120,7 +120,7 @@ Cei ce folosesc o referință imutabilă nu se așteaptă ca valoarea să se sch
 
 Trebuie să reții că domeniul de vizibilitate al unei referințe începe de unde este aceasta introdusă și continuă până la ultima utilizare a respectivei referințe. De pildă, acest cod se va compila deoarece ultima folosire a referințelor imutabile, și anume `println!`, are loc înainte de a fi introdusă referința mutabilă:
 
-```rust,edition2021
+```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-13-reference-scope-ends/src/main.rs:here}}
 ```
 

@@ -95,6 +95,8 @@ let s = "hello";
 
 Variabila `s` se referă la un string literal, unde valoarea string-ului este inclusă direct în textul programului nostru. Variabila este validă de la punctul în care este declarată până la sfârșitul domeniului de vizibilitate curent. Listarea 4-1 arată un program cu comentarii care anunță unde ar fi validă variabila `s`.
 
+<Listing number="4-1" caption="A variable and the scope in which it is valid">
+
 ```rust
 {{#rustdoc_include ../listings/ch04-understanding-ownership/listing-04-01/src/main.rs:here}}
 ```
@@ -246,7 +248,36 @@ Aceasta rezolvă problema noastră! Cu doar `s2` validă, atunci când iese din 
 
 În plus, rezultă un fapt important pentru design-ul limbajului: Rust nu va crea niciodată automat o „copiere profundă” a datelor noastre. Prin urmare, orice *copiere automată* poate fi presupusă a fi ieftină în ceea ce privește performanța la runtime.
 
-<!-- Old heading. Do not remove or links may break. -->
+#### Scope and Assignment
+
+The inverse of this is true for the relationship between scoping, ownership, and
+memory being freed via the `drop` function as well. When you assign a completely
+new value to an existing variable, Rust will call `drop` and free the original
+value’s memory immediately. Consider this code, for example:
+
+```rust
+{{#rustdoc_include ../listings/ch04-understanding-ownership/no-listing-04b-replacement-drop/src/main.rs:here}}
+```
+
+We initially declare a variable `s` and bind it to a `String` with the value
+`"hello"`. Then, we immediately create a new `String` with the value `"ahoy"`
+and assign it to `s`. At this point, nothing is referring to the original value
+on the heap at all. Figure 4-5 illustrates the stack and heap data now:
+
+<img alt="One table representing the string value on the stack, pointing to
+the second piece of string data (ahoy) on the heap, with the original string
+data (hello) grayed out because it cannot be accessed anymore."
+src="img/trpl04-05.svg" class="center" style="width: 50%;" />
+
+<span class="caption">Figure 4-5: The representation in memory after the initial
+value has been replaced in its entirety</span>
+
+The original string thus immediately goes out of scope. Rust will run the `drop`
+function on it and its memory will be freed right away. When we print the value
+at the end, it will be `"ahoy, world!"`.
+
+<!-- Old headings. Do not remove or links may break. -->
+
 <a id="ways-variables-and-data-interact-clone"></a>
 
 #### Variabile și interacționarea cu date folosind clonarea
@@ -336,6 +367,5 @@ Rust ne oferă posibilitatea de a returna mai multe valori prin utilizarea unei 
 [ch8]: ch08-02-strings.html
 [traits]: ch10-02-traits.html
 [derivable-traits]: appendix-03-derivable-traits.html
-[method-syntax]: ch05-03-method-syntax.html#method-syntax
+[methods]: ch05-03-method-syntax.html#methods
 [paths-module-tree]: ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html
-[drop]: ../std/ops/trait.Drop.html#tymethod.drop

@@ -50,7 +50,7 @@ Să ne reamintim de eroarea din Listarea 7-4, care ne indica faptul că modulul 
 <span class="filename">Numele fișierului: src/lib.rs</span>
 
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-05/src/lib.rs}}
+{{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-05/src/lib.rs:here}}
 ```
 
 <span class="caption">Listarea 7-5: Declararea modulului `hosting` ca fiind `pub` pentru a-l putea folosi în `eat_at_restaurant`</span>
@@ -72,7 +72,7 @@ Să transformăm funcția `add_to_waitlist` într-una publică, adăugând cuvâ
 <span class="filename">Numele fișierului: src/lib.rs</span>
 
 ```rust,noplayground,test_harness
-{{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-07/src/lib.rs}}
+{{#rustdoc_include ../listings/ch07-managing-growing-projects/listing-07-07/src/lib.rs:here}}
 ```
 
 <span class="caption">Listarea 7-7: Prin adăugarea cuvântului cheie `pub` înainte de `mod hosting`

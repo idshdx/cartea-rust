@@ -47,7 +47,7 @@ Excelent! Au trecut. Acum, să invocăm funcția nouă `search_case_insensitive`
 <span class="filename">Numele fișierului: src/lib.rs</span>
 
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-22/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-22/src/main.rs:here}}
 ```
 
 Am adăugat câmpul `ignore_case` care conține un Boolean. Acum trebuie ca funcția `run` să verifice valoarea câmpului `ignore_case` și să folosească această informație pentru a decide dacă va apela funcția `search` sau `search_case_insensitive`, după cum este indicat în Listarea 12-22. Această parte încă nu va compila.
@@ -55,7 +55,7 @@ Am adăugat câmpul `ignore_case` care conține un Boolean. Acum trebuie ca func
 <span class="filename">Numele fișierului: src/lib.rs</span>
 
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-22/src/lib.rs:there}}
+{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-22/src/main.rs:there}}
 ```
 
 <span class="caption">Listarea 12-22: Apelarea fie `search`, fie `search_case_insensitive` în funcție de valoarea din `config.ignore_case`</span>
@@ -64,8 +64,8 @@ Am adăugat câmpul `ignore_case` care conține un Boolean. Acum trebuie ca func
 
 <span class="filename">Numele fișierului: src/lib.rs</span>
 
-```rust,noplayground
-{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-23/src/lib.rs:here}}
+```rust,ignore,noplayground
+{{#rustdoc_include ../listings/ch12-an-io-project/listing-12-23/src/main.rs:here}}
 ```
 
 <span class="caption">Listarea 12-23: Căutarea pentru orice valoare într-o variabilă de mediu numită `IGNORE_CASE`</span>

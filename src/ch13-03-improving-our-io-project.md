@@ -9,7 +9,7 @@ Grație cunoștințelor noastre recent dobândite despre iteratori, avem posibil
 <span class="filename">Numele fișierului: src/lib.rs</span>
 
 ```rust,ignore
-{{#rustdoc_include ../listings/ch13-functional-features/listing-12-23-reproduced/src/lib.rs:ch13}}
+{{#rustdoc_include ../listings/ch13-functional-features/listing-12-23-reproduced/src/main.rs:ch13}}
 ```
 
 <span class="caption">Listarea 13-17: Reconstituirea funcției `Config::build` din Listarea 12-23</span>
@@ -49,7 +49,7 @@ Următorul pas este actualizarea definiției `Config::build`. În fișierul *src
 <span class="filename">Numele fișierului: src/lib.rs</span>
 
 ```rust,ignore,does_not_compile
-{{#rustdoc_include ../listings/ch13-functional-features/listing-13-19/src/lib.rs:here}}
+{{#rustdoc_include ../listings/ch13-functional-features/listing-13-19/src/main.rs:here}}
 ```
 
 <span class="caption">Listarea 13-19: Actualizarea semnăturii metodei `Config::build` pentru a accepta un iterator</span>
@@ -66,8 +66,8 @@ Acum vom corecta corpul funcției `Config::build`. Dat fiind faptul că `args` i
 
 <span class="filename">Numele fișierului: src/lib.rs</span>
 
-```rust,noplayground
-{{#rustdoc_include ../listings/ch13-functional-features/listing-13-20/src/lib.rs:here}}
+```rust,ignore,noplayground
+{{#rustdoc_include ../listings/ch13-functional-features/listing-13-20/src/main.rs:here}}
 ```
 
 <span class="caption">Listarea 13-20: Modificarea corpului lui `Config::build` pentru utilizarea metodelor iteratorului</span>

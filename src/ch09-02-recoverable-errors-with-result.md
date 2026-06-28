@@ -89,10 +89,10 @@ Ne interesează să verificăm, în cadrul `match`-ului intern, dacă valoarea �
 >     let greeting_file = File::open("hello.txt").unwrap_or_else(|error| {
 >         if error.kind() == ErrorKind::NotFound {
 >             File::create("hello.txt").unwrap_or_else(|error| {
->                 panic!("Problem creating the file: {:?}", error);
+>                 panic!("Problem creating the file: {error:?}");
 >             })
 >         } else {
->             panic!("Problem opening the file: {:?}", error);
+>             panic!("Problem opening the file: {error:?}");
 >         }
 >     });
 > }
@@ -226,7 +226,7 @@ Am inițializat noul string `username` la începutul funcției, ca și înainte.
 
 Listarea 9-9 va prezenta cum să simplificăm și mai mult codul, utilizând `fs::read_to_string`.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="9-9" file-name="src/main.rs" caption="Using `fs::read_to_string` instead of opening and then reading the file">
 
 <!-- Deliberately not using rustdoc_include here; the `main` function in the
 file panics. We do want to include it for reader experimentation purposes, but
@@ -297,5 +297,5 @@ Funcția `main` poate returna orice tip de date care implementează [trăsătura
 După ce am clarificat modul în care apelăm `panic!` sau returnăm `Result`, să discutăm cum alegem între aceste opțiuni în funcție de situație.
 
 [handle_failure]: ch02-00-guessing-game-tutorial.html#handling-potential-failure-with-result
-[trait-objects]: ch17-02-trait-objects.html#using-trait-objects-that-allow-for-values-of-different-types
+[trait-objects]: ch18-02-trait-objects.html#using-trait-objects-to-abstract-over-shared-behavior
 [termination]: ../std/process/trait.Termination.html

@@ -20,8 +20,7 @@ Odată ce am definit o structură, pentru a o putea utiliza, trebuie să creăm 
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-02/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 5-2: Creating an instance of the `User`
-struct</span>
+</Listing>
 
 Pentru a extrage o anumită valoare dintr-o structură, apelăm la notația cu punct. De pildă, dacă dorim să accesăm adresa de email a acestui utilizator, utilizăm expresia `user1.email`. În cazul în care instanța noastră este mutabilă, avem posibilitatea de a modifica o valoare folosind aceeași notație cu punct, dar realizând o atribuire într-un câmp specific. În Listarea 5-3 este prezentată modalitatea de schimbare a valorii în câmpul `email` al unei instanțe mutabile de tip `User`.
 
@@ -31,8 +30,7 @@ Pentru a extrage o anumită valoare dintr-o structură, apelăm la notația cu p
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-03/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 5-3: Changing the value in the `email` field of a
-`User` instance</span>
+</Listing>
 
 <span class="caption">Listarea 5-3: Schimbarea valorii în câmpul `email` pentru o instanţă `User`</span>
 
@@ -51,7 +49,8 @@ Listarea 5-4 prezintă o funcție `build_user`, care returnează o instanță `U
 
 Este firesc să folosim aceleași denumiri pentru parametrii funcției precum cele ale câmpurilor din structură. Cu toate acestea, repetarea numelor câmpurilor `email` și `username` și a variabilelor poate deveni monotonă. Dacă structura ar conține mai multe câmpuri, repetarea fiecărui nume s-ar transforma într-o sarcină mai mult decât fastidioasă. Din fericire, există o prescurtare foarte convenabilă!
 
-<!-- Old heading. Do not remove or links may break. -->
+<!-- Old headings. Do not remove or links may break. -->
+
 <a id="using-the-field-init-shorthand-when-variables-and-fields-have-the-same-name"></a>
 
 ### Aplicarea sintaxei de inițializare abreviată a câmpurilor
@@ -90,9 +89,7 @@ Utilizând sintaxa de actualizare a structurii, putem atinge același rezultat c
 {{#rustdoc_include ../listings/ch05-using-structs-to-structure-related-data/listing-05-07/src/main.rs:here}}
 ```
 
-<span class="caption">Listing 5-7: Using struct update syntax to set a new
-`email` value for a `User` instance but to use the rest of the values from
-`user1`</span>
+</Listing>
 
 Codul prezentat în Listarea 5-7 generează de asemenea o instanță în `user2`, care are o valoare distinctă pentru `email`, dar păstrează aceleași valori pentru câmpurile `username`, `active` și `sign_in_count` ca în `user1`. Elementul `..user1` trebuie poziționat la final pentru a indica faptul că orice alt câmp rămas ar trebui să își preia valorile de la câmpurile corespondente din `user1`. În același timp, ne este permis să stabilim valorile pentru oricâte câmpuri dorim, fără a fi impusă vreo ordine, indiferent de succesiunea câmpurilor în cadrul definiției structurii.
 

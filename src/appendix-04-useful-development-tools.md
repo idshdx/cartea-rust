@@ -29,12 +29,9 @@ Instrumentul rustfix este inclus în instalările Rust și poate corecta în mod
 <span class="filename">Numele fișierului: src/main.rs</span>
 
 ```rust
-fn do_something() {}
-
 fn main() {
-    for i in 0..100 {
-        do_something();
-    }
+    let mut x = 42;
+    println!("{x}");
 }
 ```
 
@@ -43,15 +40,15 @@ Aici, apelăm funcția `do_something` de 100 de ori, dar nu folosim niciodată v
 ```console
 $ cargo build
    Compiling myprogram v0.1.0 (file:///projects/myprogram)
-warning: unused variable: `i`
- --> src/main.rs:4:9
+warning: variable does not need to be mutable
+ --> src/main.rs:2:9
   |
-4 |     for i in 0..100 {
-  |         ^ help: consider using `_i` instead
+2 |     let mut x = 0;
+  |         ----^
+  |         |
+  |         help: remove this `mut`
   |
-  = note: #[warn(unused_variables)] on by default
-
-    Finished dev [unoptimized + debuginfo] target(s) in 0.50s
+  = note: `#[warn(unused_mut)]` on by default
 ```
 
 Avertismentul sugerează să folosim `_i` ca nume în schimb: linia de subliniere indică faptul că intenționăm ca această variabilă să rămână nefolosită. Putem aplica automat această sugestie folosind instrumentul `rustfix` rulând comanda `cargo fix`:
@@ -68,12 +65,9 @@ Când ne uităm din nou la *src/main.rs*, vedem că `cargo fix` a modificat codu
 <span class="filename">Numele fișierului: src/main.rs</span>
 
 ```rust
-fn do_something() {}
-
 fn main() {
-    for _i in 0..100 {
-        do_something();
-    }
+    let x = 42;
+    println!("{x}");
 }
 ```
 
@@ -137,7 +131,7 @@ fn main() {
 
 Pentru mai multe informații despre Clippy, vezi [documentația sa][clippy].
 
-[clippy]: https://github.com/rust-lang/rust-clippy
+For more information on Clippy, see [its documentation][clippy].
 
 ### Integrarea cu IDE folosind `rust-analyzer`
 
@@ -152,4 +146,9 @@ utilitare centrate pe compilator care folosesc protocolul [Language Server Proto
 Vizitează pagina de [acasa][rust-analyzer] a proiectului `rust-analyzer` <!-- ignore -->
 pentru instrucțiuni de instalare, apoi instalează suportul pentru serverul de limbaj în propriul tău IDE. IDE-ul tău va obține abilități precum autocompletare, sări la definiție, și erorile inline.
 
+[rustfmt]: https://github.com/rust-lang/rustfmt
+[editions]: appendix-05-editions.md
+[clippy]: https://github.com/rust-lang/rust-clippy
 [rust-analyzer]: https://rust-analyzer.github.io
+[lsp]: http://langserver.org/
+[vscode]: https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer

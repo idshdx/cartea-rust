@@ -10,7 +10,7 @@ Specifici codul care urmează să fie executat când o valoare iese din domeniul
 
 Listarea 15-14 prezintă structura `CustomSmartPointer` care, prin unica ei funcționalitate particulară, va afișa mesajul `Dropping CustomSmartPointer!` la ieșirea instanței din domeniul de vizibilitate, demonstrând astfel momentul în care Rust execută funcția `drop`.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="15-14" file-name="src/main.rs" caption="A `CustomSmartPointer` struct that implements the `Drop` trait where we would put our cleanup code">
 
 ```rust
 {{#rustdoc_include ../listings/ch15-smart-pointers/listing-15-14/src/main.rs}}

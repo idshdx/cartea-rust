@@ -6,6 +6,8 @@ Primul tip de colecție pe care îl vom discuta se numește `Vec<T>`, cunoscut m
 
 Pentru a crea un vector nou și gol, utilizăm funcția `Vec::new`, după cum urmează în Listarea 8-1.
 
+<Listing number="8-1" caption="Creating a new, empty vector to hold values of type `i32`">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-01/src/main.rs:here}}
 ```
@@ -15,6 +17,8 @@ Pentru a crea un vector nou și gol, utilizăm funcția `Vec::new`, după cum ur
 Aici am adăugat o adnotare de tip deoarece nu introducem valori și Rust nu poate deduce tipul elementelor pe care dorim să le stocăm. Acest aspect este crucial. Vectorii sunt construiți folosind generice, iar utilizarea genericelor cu tipurile proprii le vom explora în Capitolul 10. Până atunci, este important să știi că tipul `Vec<T>` din biblioteca standard poate conține orice alt tip. Când inițializăm un vector pentru un anumit tip, specificăm acest tip între paranteze unghiulare. În Listarea 8-1, i-am indicat lui Rust că `Vec<T>` de la variabila `v` va conține elemente de tip `i32`.
 
 De obicei, cel mai frecvent vei inițializa vectorii `Vec<T>` cu valori specifice și Rust va infera automat tipul de date pe care dorești să-l stochezi. Prin urmare, este rar necesar să oferi adnotări de tip. Rust oferă macro-ul `vec!`, care te ajută să creezi direct un vector nou cu valorile specificate. Listarea 8-2 arată cum să creezi un `Vec<i32>` care stochează valorile `1`, `2` și `3`. Tipul de date pentru întregi este `i32`, conform predefinirii pentru tipul întreg, așa cum am discutat în secțiunea [„Tipuri de date”][data-types]<!-- ignore --> din Capitolul 3.
+
+<Listing number="8-2" caption="Creating a new vector containing values">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-02/src/main.rs:here}}
@@ -27,6 +31,8 @@ Deoarece am furnizat valori inițiale de tip `i32`, Rust poate determina că `v`
 ### Actualizarea unui vector
 
 Pentru a crea un vector și a-i adăuga elemente, putem utiliza metoda `push`. Urmărește exemplul din Listarea 8-3.
+
+<Listing number="8-3" caption="Using the `push` method to add values to a vector">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-03/src/main.rs:here}}
@@ -41,6 +47,8 @@ Dacă vrem să modificăm o variabilă, trebuie să o declarăm ca fiind mutabil
 Există două modalități prin care poți referenția o valoare stocată într-un vector: prin indexare sau utilizând metoda `get`. Pentru claritate, în exemplele următoare am specificat tipurile valorilor returnate de aceste două funcții.
 
 În Listarea 8-4, sunt ilustrate ambele metode de accesare a unei valori dintr-un vector - prin indexare directă și folosind metoda `get`.
+
+<Listing number="8-4" caption="Using indexing syntax and using the `get` method to access an item in a vector">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-04/src/main.rs:here}}
@@ -72,7 +80,6 @@ Atunci când avem o referință valabilă, verificatorul de împrumut verifică 
 
 Compilarea acestui cod va genera următoarea eroare:
 
-
 ```console
 {{#include ../listings/ch08-common-collections/listing-08-06/output.txt}}
 ```
@@ -85,6 +92,8 @@ Poate părea surprinzător că acest cod generează o eroare, deoarece te-ai put
 
 Pentru a accesa elementele unui vector rând pe rând, cel mai eficient este să folosim o iterație completă, decât să accesăm elementele individual prin indici. Listarea 8-7 demonstrează modul în care putem utiliza un ciclu `for` pentru a parcurge un vector de valori de tip `i32`, obținând referințe imutabile la fiecare element și afișându-le.
 
+<Listing number="8-7" caption="Printing each element in a vector by iterating over the elements using a `for` loop">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-07/src/main.rs:here}}
 ```
@@ -92,6 +101,8 @@ Pentru a accesa elementele unui vector rând pe rând, cel mai eficient este să
 <span class="caption">Listarea 8-7: Afișarea fiecărui element al unui vector prin iterare cu ajutorul unui ciclu `for`</span>
 
 Este posibil să iterăm și prin referințe mutabile ale elementelor unui vector mutabil, pentru a modifica toate elementele acestuia. Ciclul `for` din Listarea 8-8 adaugă `50` la valoarea fiecărui element.
+
+<Listing number="8-8" caption="Iterating over mutable references to elements in a vector">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-08/src/main.rs:here}}
@@ -109,6 +120,8 @@ Vectorii sunt limitați la stocarea valorilor de același tip, ceea ce poate fi 
 
 Să presupunem că dorim să extragem valori dintr-un rând al unui tabel, unde coloanele acelui rând conțin întregi, numere în virgulă mobilă sau string-uri. Ne putem defini un enum cu variante pentru fiecare tip de valoare, iar aceste variante de enum vor fi considerate același tip: tipul enum-ului în sine. Putem crea apoi un vector care să păstreze acest enum și, în final, să cuprindă tipuri variate. Acest concept este ilustrat în Listarea 8-9.
 
+<Listing number="8-9" caption="Defining an enum to store values of different types in one vector">
+
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-09/src/main.rs:here}}
 ```
@@ -124,6 +137,8 @@ După ce am explorat unele dintre cele mai frecvente utilizări ale vectorilor, 
 ### Un vector își eliberează elementele la distrugere
 
 Ca orice `struct`, un vector este eliberat automat când domeniul său de vizibilitate se încheie, după cum vedem în Listarea 8-10.
+
+<Listing number="8-10" caption="Showing where the vector and its elements are dropped">
 
 ```rust
 {{#rustdoc_include ../listings/ch08-common-collections/listing-08-10/src/main.rs:here}}

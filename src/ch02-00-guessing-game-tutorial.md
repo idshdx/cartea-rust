@@ -199,7 +199,7 @@ input 6 -->
 ```console
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
-    Finished dev [unoptimized + debuginfo] target(s) in 6.44s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 6.44s
      Running `target/debug/guessing_game`
 Guess the number!
 Please input your guess.
@@ -243,25 +243,29 @@ rm Cargo.lock
 cargo clean
 cargo build -->
 
+<Listing number="2-2" caption="The output from running `cargo build` after adding the `rand` crate as a dependency">
+
 ```console
 $ cargo build
-    Updating crates.io index
-  Downloaded rand v0.8.5
-  Downloaded libc v0.2.127
-  Downloaded getrandom v0.2.7
-  Downloaded cfg-if v1.0.0
-  Downloaded ppv-lite86 v0.2.16
-  Downloaded rand_chacha v0.3.1
-  Downloaded rand_core v0.6.3
-   Compiling libc v0.2.127
-   Compiling getrandom v0.2.7
-   Compiling cfg-if v1.0.0
-   Compiling ppv-lite86 v0.2.16
-   Compiling rand_core v0.6.3
-   Compiling rand_chacha v0.3.1
-   Compiling rand v0.8.5
-   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
-    Finished dev [unoptimized + debuginfo] target(s) in 2.53s
+  Updating crates.io index
+   Locking 15 packages to latest Rust 1.85.0 compatible versions
+    Adding rand v0.8.5 (available: v0.9.0)
+ Compiling proc-macro2 v1.0.93
+ Compiling unicode-ident v1.0.17
+ Compiling libc v0.2.170
+ Compiling cfg-if v1.0.0
+ Compiling byteorder v1.5.0
+ Compiling getrandom v0.2.15
+ Compiling rand_core v0.6.4
+ Compiling quote v1.0.38
+ Compiling syn v2.0.98
+ Compiling zerocopy-derive v0.7.35
+ Compiling zerocopy v0.7.35
+ Compiling ppv-lite86 v0.2.20
+ Compiling rand_chacha v0.3.1
+ Compiling rand v0.8.5
+ Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
+  Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.48s
 ```
 
 <span class="caption">Listarea 2-2: Afișajul rezultat după executarea `cargo build` în urma adăugării crate-ului rand ca dependență</span>
@@ -284,7 +288,7 @@ cargo build -->
 ```console
 $ cargo build
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
-    Finished dev [unoptimized + debuginfo] target(s) in 2.53 secs
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.13s
 ```
 
 Aceste linii arată că Cargo actualizează build-ul doar cu micuța ta modificare la fișierul *src/main.rs*. Dependențele tale nu s-au schimbat, așa că Cargo știe că poate reutiliza ceea ce deja a descărcat și compilat pentru acestea.
@@ -308,14 +312,15 @@ as a guide to creating the hypothetical output shown here -->
 ```console
 $ cargo update
     Updating crates.io index
-    Updating rand v0.8.5 -> v0.8.6
+     Locking 1 package to latest Rust 1.85.0 compatible version
+    Updating rand v0.8.5 -> v0.8.6 (available: v0.999.0)
 ```
 
 Cargo va ignora lansarea versiunii 0.9.0. De asemenea, ai remarca o modificare în fișierul tău *Cargo.lock*, care arată că acum folosești versiunea 0.8.6 a crate-ului `rand`. Pentru a utiliza versiunea `rand` 0.9.0 sau orice altă versiune din seria 0.9.*x*, trebuie să actualizezi fisierul *Cargo.toml* astfel:
 
 ```toml
 [dependencies]
-rand = "0.9.0"
+rand = "0.999.0"
 ```
 
 
@@ -363,7 +368,7 @@ cargo run
 ```console
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
-    Finished dev [unoptimized + debuginfo] target(s) in 2.53s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s
      Running `target/debug/guessing_game`
 Guess the number!
 The secret number is: 7
@@ -372,7 +377,7 @@ Please input your guess.
 You guessed: 4
 
 $ cargo run
-    Finished dev [unoptimized + debuginfo] target(s) in 0.02s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s
      Running `target/debug/guessing_game`
 Guess the number!
 The secret number is: 83
@@ -446,6 +451,7 @@ Să rulăm acum programul:
 
 <!-- manual-regeneration
 cd listings/ch02-guessing-game-tutorial/no-listing-03-convert-string-to-number/
+touch src/main.rs
 cargo run
   76
 -->
@@ -453,7 +459,7 @@ cargo run
 ```console
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.43s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.26s
      Running `target/debug/guessing_game`
 Guess the number!
 The secret number is: 58
@@ -483,6 +489,7 @@ Utilizatorul poate întrerupe întotdeauna programul utilizând combinația de t
 
 <!-- manual-regeneration
 cd listings/ch02-guessing-game-tutorial/no-listing-04-looping/
+touch src/main.rs
 cargo run
 (too small guess)
 (too big guess)
@@ -493,7 +500,7 @@ quit
 ```console
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
-    Finished dev [unoptimized + debuginfo] target(s) in 1.50s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.23s
      Running `target/debug/guessing_game`
 Guess the number!
 The secret number is: 59
@@ -561,7 +568,7 @@ foo
 ```console
 $ cargo run
    Compiling guessing_game v0.1.0 (file:///projects/guessing_game)
-    Finished dev [unoptimized + debuginfo] target(s) in 4.45s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.13s
      Running `target/debug/guessing_game`
 Guess the number!
 The secret number is: 61
@@ -583,7 +590,7 @@ You win!
 
 Minunat! Cu o mică ultimă ajustare, vom termina jocul de ghicit. Amintește-ți că programul încă afișează numărul secret. Acest lucru a funcționat bine pentru testare, dar strică jocul. Să ștergem `println!` care afișează numărul secret. Listarea 2-6 arată codul final.
 
-<span class="filename">Filename: src/main.rs</span>
+<Listing number="2-6" file-name="src/main.rs" caption="Complete guessing game code">
 
 ```rust,ignore
 {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/listing-02-06/src/main.rs}}
