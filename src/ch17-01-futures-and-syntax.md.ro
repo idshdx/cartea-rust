@@ -1,0 +1,356 @@
+## Futures și sintaxa asincronă
+
+Elementele cheie ale programării asincrone în Rust sunt _futures_ și cuvintele-cheie
+`async` și `await` din Rust.
+
+Un _future_ este o valoare care poate să nu fie gata acum, dar care va deveni gata la un
+moment dat în viitor. (Același concept apare în multe limbaje de programare, uneori
+sub alte denumiri, precum _task_ sau _promise_.) Rust oferă un trait `Future`
+ca element de bază, astfel încât diferite operații asincrone să poată fi implementate cu
+structuri de date diferite, dar cu o interfață comună. În Rust, futures sunt
+tipuri care implementează trait-ul `Future`. Fiecare future deține propriile informații
+despre progresul realizat și despre ce înseamnă „gata”.
+
+Puteți aplica cuvântul-cheie `async` la blocuri și funcții pentru a specifica că acestea
+pot fi întrerupte și reluate. În cadrul unui bloc asincron sau al unei funcții asincrone, puteți
+utiliza cuvântul-cheie `await` pentru a _aștepta un future_ (adică, a aștepta ca acesta să devină
+gata). Orice punct în care aștepți un „future” în cadrul unui bloc sau al unei funcții asincrone reprezintă
+un punct potențial în care acel bloc sau acea funcție se poate întrerupe și relua. Procesul de
+verificare a unui „future” pentru a vedea dacă valoarea sa este deja disponibilă se numește _polling_.
+
+Alte limbaje de programare, precum C# și JavaScript, utilizează, de asemenea, cuvintele-cheie `async` și `await`
+pentru programarea asincronă. Dacă sunteți familiarizați cu aceste limbaje,
+s-ar putea să observați câteva diferențe semnificative în modul în care Rust gestionează sintaxa. Există
+un motiv întemeiat pentru asta, după cum vom vedea!
+
+Când scriem cod asincron în Rust, folosim cuvintele-cheie `async` și `await` în cea mai mare parte a
+timpului. Rust le compilează în cod echivalent folosind trăsătura `Future`, la fel cum
+compilează buclele `for` în cod echivalent folosind trăsătura `Iterator`.
+Totuși, deoarece Rust oferă trăsătura `Future`, o poți implementa și pentru
+propriile tale tipuri de date atunci când ai nevoie. Multe dintre funcțiile pe care le vom vedea
+pe parcursul acestui capitol returnează tipuri cu propriile lor implementări ale
+`Future`. Vom reveni la definiția trăsăturii la sfârșitul capitolului
+și vom aprofunda modul în care funcționează, dar aceste detalii sunt suficiente pentru a ne permite să
+mergem mai departe.
+
+Toate acestea pot părea puțin abstracte, așa că haideți să scriem primul nostru program asincron: un
+mic scraper web. Vom transmite două adrese URL din linia de comandă, le vom prelua pe amândouă
+în paralel și vom returna rezultatul celui care se termină primul. Acest
+exemplu va conține destul de multe elemente de sintaxă noi, dar nu vă faceți griji — vă vom explica
+tot ce trebuie să știți pe măsură ce avansăm.
+
+## Primul nostru program asincron
+
+Pentru a menține accentul acestui capitol pe învățarea programării asincrone, mai degrabă decât pe jonglarea cu părți
+ale ecosistemului, am creat crate-ul `trpl` (`trpl` este prescurtarea de la „The Rust
+Programming Language”). Acesta reexportă toate tipurile, trăsăturile și funcțiile
+de care veți avea nevoie, în principal din crate-urile [`futures`][futures-crate]<!-- ignore --> și
+[`tokio`][tokio]<!-- ignore -->. Crate-ul `futures` este un spațiu oficial
+dedicat experimentării cu cod asincron în Rust și este, de fapt, locul în care trait-ul `Future`
+a fost conceput inițial. Tokio este cel mai utilizat runtime asincron în
+Rust în prezent, în special pentru aplicațiile web. Există și alte runtime-uri excelente
+disponibile, care ar putea fi mai potrivite pentru scopurile tale. Noi folosim crate-ul `tokio`
+în fundal pentru `trpl`, deoarece este bine testat și utilizat pe scară largă.
+
+În unele cazuri, `trpl` redenumește sau învelește API-urile originale pentru a vă permite să
+vă concentrați asupra detaliilor relevante pentru acest capitol. Dacă doriți să înțelegeți ce
+face crate-ul, vă încurajăm să consultați [codul sursă al acestuia][crate-source].
+Veți putea vedea din ce crate provine fiecare reexport, iar noi am lăsat
+comentarii detaliate care explică ce face fiecare crate.
+
+Creați un nou proiect binar numit `hello-async` și adăugați crate-ul `trpl` ca
+dependență:
+
+```console
+$ cargo new hello-async
+$ cd hello-async
+$ cargo add trpl
+```
+
+Acum putem folosi diversele componente furnizate de `trpl` pentru a scrie primul nostru
+program asincron. Vom crea un mic instrument de linie de comandă care preia două pagini web,
+extrage `<title></title>
+
+<Listing number="17-1" file-name="src/main.rs" caption="Defining an async function to get the title element from an HTML page">
+
+```rust
+{{#rustdoc_include ../listings/ch17-async-await/listing-17-01/src/main.rs:all}}
+```
+
+</Listing>
+
+Mai întâi, definim o funcție numită `page_title` și o marcăm cu cuvântul-cheie `async`. Apoi folosim funcția `trpl::get` pentru a prelua orice URL este transmis
+și adăugăm cuvântul-cheie `await` pentru a aștepta răspunsul. Pentru a obține textul
+`response`, apelăm metoda sa `text` și, din nou, așteptăm cu ajutorul cuvântului-cheie `await`.
+Ambele etape sunt asincrone. În cazul funcției `get`, trebuie
+să așteptăm ca serverul să trimită înapoi prima parte a răspunsului său, care va
+include antete HTTP, cookie-uri și așa mai departe și care poate fi livrată separat de
+corpul răspunsului. Mai ales dacă corpul este foarte mare, poate dura ceva timp
+până când ajunge în întregime. Deoarece trebuie să așteptăm ca _întregul_
+răspuns să sosească, metoda `text` este, de asemenea, asincronă.
+
+Trebuie să așteptăm în mod explicit ambele `futures`, deoarece `futures`-urile din Rust sunt
+_lazy_: nu fac nimic până când nu le ceri acest lucru cu ajutorul cuvântului-cheie `await`.
+(De fapt, Rust va afișa un avertisment al compilatorului dacă nu folosești un future.) Acest lucru
+s-ar putea să-ți amintească de discuția despre iteratori din secțiunea [„Prelucrarea unei serii de
+elemente cu iteratori”][iterators-lazy]<!-- ignore -->
+
+din capitolul 13.
+Iteratorii nu fac nimic decât dacă le apelați metoda `next` — fie direct, fie prin
+utilizarea buclelor `for` sau a unor metode precum `map`, care folosesc `next` în fundal.
+La fel, obiectele de tip „future” nu fac nimic decât dacă le solicitați în mod explicit acest lucru. Această „lene”
+permite limbajului Rust să evite executarea codului asincron până când acesta este cu adevărat necesar.
+
+> Notă: Acest comportament diferă de cel observat atunci când am folosit `thread::spawn`
+> în secțiunea [„Crearea unui nou thread cu spawn”][thread-spawn]<!-- ignore -->
+> din capitolul 16, unde clozura pe care am transmis-o unui alt thread a început
+> să se execute imediat. De asemenea, este diferit de modul în care multe alte limbaje
+> abordează asincronismul. Dar este important ca Rust să poată oferi
+> garanțiile sale de performanță, la fel cum se întâmplă și în cazul iteratorilor.
+
+Odată ce avem `response_text`, îl putem analiza într-o instanță de tip `Html`
+folosind `Html::parse`. În loc de un șir brut, avem acum un tip de date pe care
+îl putem folosi pentru a lucra cu HTML-ul ca o structură de date mai bogată. În special, putem
+folosi metoda `select_first` pentru a găsi prima instanță a unui anumit selector CSS
+. Trecând șirul `"title"`, vom obține primul `<title></title>
+
+Cu asta, am scris cu succes prima noastră funcție asincronă! Înainte de a adăuga
+niște cod în `main` pentru a o apela, hai să vorbim puțin mai mult despre ce am
+scris și ce înseamnă asta.
+
+Când Rust întâlnește un _bloc_ marcat cu cuvântul-cheie `async`, îl compilează într-un
+tip de date unic și anonim care implementează trăsătura `Future`. Când Rust întâlnește
+o _funcție_ marcată cu `async`, o compilează într-o funcție non-asincronă
+al cărei corp este un bloc asincron. Tipul de returnare al unei funcții asincrone este tipul
+tipului de date anonim pe care compilatorul îl creează pentru acel bloc asincron.
+
+Astfel, scrierea `async fn` este echivalentă cu scrierea unei funcții care returnează un
+_future_ de tipul de returnare. Pentru compilator, o definiție de funcție precum
+`async fn page_title` din Listarea 17-1 este aproximativ echivalentă cu o funcție non-asincronă
+definită astfel:
+
+```rust
+# extern crate trpl; // necesar pentru testul mdbook
+use std::future::Future;
+use trpl::Html;
+
+fn page_title(url: &str) -> impl Future<output =="" option<string="">> {
+    async move {
+        let text = trpl::get(url).await.text().await;
+        Html::parse(&text)
+            .select_first("title")
+            .map(|title| title.inner_html())
+    }
+}
+```</output>
+
+Să analizăm fiecare parte a versiunii transformate:
+
+- Se folosește sintaxa `impl Trait` pe care am discutat-o în capitolul 10, în
+  secțiunea [„Traits ca parametri”][impl-trait]<!-- ignore -->.
+- Valoarea returnată implementează trait-ul `Future` cu un tip asociat de
+  `Output`. Observați că tipul `Output` este `Option<string>`, care este
+  identic cu tipul de returnare original din versiunea `async fn` a funcției `page_title`.
+- Tot codul apelat în corpul funcției originale este încadrat într-un
+  bloc `async move`. Rețineți că blocurile sunt expresii. Întregul bloc
+  reprezintă expresia returnată de funcție.
+- Acest bloc async produce o valoare de tip `Option<string>
+
+`, așa cum tocmai
+  am descris. Această valoare corespunde tipului `Output` din tipul de returnare. Este
+  exact la fel ca și celelalte blocuri pe care le-ați văzut.
+- Noul corp al funcției este un bloc `async move` datorită modului în care utilizează
+  parametrul `url`. (Vom discuta mult mai detaliat despre diferența dintre `async` și `async move`
+  mai târziu în acest capitol.)
+
+Acum putem apela `page_title` în `main`.
+
+<!-- Old headings. Do not remove or links may break. -->
+
+<a id ="determining-a-single-pages-title"></a></string></string>
+
+### Executarea unei funcții asincrone cu un obiect de execuție
+
+Pentru început, vom prelua titlul unei singure pagini, așa cum se arată în Listarea 17-3.
+Din păcate, acest cod nu se compilează încă.
+
+<Listing number="17-3" file-name="src/main.rs" caption="Calling the `page_title` function from `main` with a user-supplied argument">
+
+```rust,ignore,does_not_compile
+{{#rustdoc_include ../listings/ch17-async-await/listing-17-03/src/main.rs:main}}
+```
+
+</Listing>
+
+Urmăm același model pe care l-am folosit pentru a prelua argumentele liniei de comandă în
+secțiunea [„Acceptarea argumentelor liniei de comandă”][cli-args]<!-- ignore --> din
+capitolul 12. Apoi transmitem argumentul URL către `page_title` și așteptăm rezultatul.
+Deoarece valoarea generată de future este de tip `Option<string>`, folosim o
+expresie `match` pentru a afișa mesaje diferite, în funcție de faptul dacă pagina
+avea un `<title></title></string>
+
+Majoritatea limbajelor care suportă asincronismul includ un motor de execuție, dar Rust nu. În schimb,
+există numeroase motoare de execuție asincrone disponibile, fiecare dintre ele oferind compromisuri diferite,
+adecvate cazului de utilizare pe care îl vizează. De exemplu, un server web cu
+debit ridicat, dotat cu multe nuclee CPU și o cantitate mare de memorie RAM, are nevoi foarte diferite
+față de un microcontroler cu un singur nucleu, o cantitate mică de memorie RAM și fără
+capacitate de alocare a memoriei heap. Crate-urile care furnizează aceste medii de execuție oferă adesea
+și versiuni asincrone ale funcționalităților obișnuite, cum ar fi I/O-ul de fișiere sau de rețea.
+
+Aici, precum și în restul acestui capitol, vom folosi funcția `block_on`
+din crate-ul `trpl`, care primește un future ca argument și blochează
+thread-ul curent până când acest future se execută până la final. În culise,
+apelarea `block_on` configurează un mediu de execuție folosind cratul `tokio`, care este utilizat pentru a rula
+future-ul transmis (comportamentul funcției `block_on` din cratul `trpl` este similar cu
+funcțiile `block_on` ale altor craturi de mediu de execuție). Odată ce `future`-ul se finalizează,
+`block_on` returnează orice valoare a produs `future`-ul.
+
+Am putea transmite `future`-ul returnat de `page_title` direct către `block_on` și,
+odată finalizat, am putea efectua o potrivire (match) pe `Option<string>`</string>-ul rezultat, <string>așa cum am încercat
+să facem în Listarea 17-3. Cu toate acestea, pentru majoritatea exemplelor din acest capitol (și
+pentru majoritatea codului asincron din lumea reală), vom efectua mai mult decât un singur apel de funcție asincron
+, așa că, în schimb, vom trece un bloc `async` și vom aștepta în mod explicit
+rezultatul apelului `page_title`, așa cum se vede în Listarea 17-4.
+
+<Listing number="17-4" caption="Awaiting an async block with `trpl::block_on`" file-name="src/main.rs">
+
+<!-- should_panic,noplayground because mdbook test does not pass args -->
+
+</Listing>
+
+<Listing number="17-4" caption="Awaiting an async block with `trpl::block_on`" file-name="src/main.rs">
+
+```rust,should_panic,noplayground
+{{#rustdoc_include ../listings/ch17-async-await/listing-17-04/src/main.rs:run}}
+```
+
+</Listing></string>
+
+Când rulăm acest cod, obținem comportamentul la care ne așteptam inițial:
+
+<!-- manual-regeneration
+cd listings/ch17-async-await/listing-17-04
+cargo build # skip all the build noise
+cargo run -- "https://www.rust-lang.org"
+# copy the output here
+-->
+
+```console
+$ cargo run -- "https://www.rust-lang.org"
+    S-au finalizat țintele profilului `dev` [neoptimizat + informații de depanare] în 0,05 s
+     Se execută `target/debug/async_await &#x27;https://www.rust-lang.org&#x27;`
+Titlul pentru https://www.rust-lang.org a fost
+            Limbajul de programare Rust
+```
+
+Uf — în sfârșit avem un cod asincron care funcționează! Dar înainte de a adăuga codul pentru a
+pune în competiție cele două site-uri, să ne întoarcem puțin atenția asupra modului în care
+funcționează futures.
+
+Fiecare _punct de așteptare_ — adică fiecare loc în care codul folosește cuvântul-cheie `await`
+— reprezintă un loc în care controlul este redat motorului de execuție. Pentru ca
+acest lucru să funcționeze, Rust trebuie să țină evidența stării implicate în blocul asincron, astfel încât
+motorul de execuție să poată demara alte operațiuni și apoi să revină când este
+gata să încerce din nou să avanseze prima operațiune. Aceasta este o mașină de stări invizibilă,
+ca și cum ai fi scris o enumerare de genul acesta pentru a salva starea curentă la fiecare punct de așteptare
+:
+
+```rust
+{{#rustdoc_include ../listings/ch17-async-await/no-listing-state-machine/src/lib.rs:enum}}
+```
+
+Scrierea manuală a codului pentru tranziția între fiecare stare ar fi obositoare și
+predispusă la erori, mai ales atunci când trebuie să adăugați ulterior mai multe funcționalități și
+mai multe stări la cod. Din fericire, compilatorul Rust creează și
+gestionează automat structurile de date ale mașinii de stări pentru codul asincron.
+Regulile obișnuite de împrumut și proprietate referitoare la structurile de date se aplică în continuare,
+iar, din fericire, compilatorul se ocupă și de verificarea acestora pentru noi și oferă
+mesaje de eroare utile. Vom analiza câteva dintre acestea mai târziu în acest capitol.
+
+În cele din urmă, ceva trebuie să execute această mașină de stări, iar acel ceva este
+un runtime. (De aceea s-ar putea să întâlniți mențiuni despre _executori_ atunci când
+cercetați runtime-urile: un executor este partea unui runtime responsabilă de
+executarea codului asincron.)
+
+Acum puteți înțelege de ce compilatorul ne-a împiedicat să transformăm `main` însăși într-o funcție asincronă
+în Listarea 17-3. Dacă `main` ar fi o funcție asincronă, altceva
+ar trebui să gestioneze mașina de stări pentru orice `future` ar returna `main`, dar
+`main` este punctul de pornire al programului! În schimb, am apelat funcția
+`trpl::block_on` în `main` pentru a configura un mediu de execuție și a rula viitorul
+returnat de blocul `async` până la finalizarea acestuia.
+
+> Notă: Unele medii de execuție oferă macrocomenzi, astfel încât să poți scrie o funcție `main` asincronă
+> . Aceste macrocomenzi rescriu `async fn main() { ... }` într-un `fn
+> main` obișnuit, care face același lucru pe care l-am făcut manual în Listarea 17-4: apelează o
+> funcție care execută un future până la finalizare, așa cum o face `trpl::block_on`.
+
+Acum să punem aceste elemente cap la cap și să vedem cum putem scrie cod concurent.
+
+<!-- Old headings. Do not remove or links may break. -->
+
+<a id="racing-our-two-urls-against-each-other"></a>
+
+### Compararea concurentă a două URL-uri
+
+În Listarea 17-5, apelăm funcția `page_title` cu două URL-uri diferite transmise din
+linia de comandă și le comparăm, alegând cel care ajunge primul la destinație.
+
+<Listing number="17-5" caption="Calling `page_title` for two URLs to see which returns first" file-name="src/main.rs">
+
+<!-- should_panic,noplayground because mdbook does not pass args -->
+
+```rust,should_panic,noplayground
+{{#rustdoc_include ../listings/ch17-async-await/listing-17-05/src/main.rs:all}}
+```
+
+</Listing>
+
+Începem prin a apela `page_title` pentru fiecare dintre adresele URL furnizate de utilizator. Salvăm
+futures-urile rezultate ca `title_fut_1` și `title_fut_2`. Rețineți că acestea nu
+fac încă nimic, deoarece obiectele `future` sunt „leneșe” și încă nu le-am așteptat să se finalizeze. Apoi
+transmitem obiectele `future` către `trpl::select`, care returnează o valoare pentru a indica care
+dintre obiectele `future` transmise se finalizează primul.
+
+> Notă: La nivel de implementare, `trpl::select` se bazează pe o funcție `select` mai generală,
+> definită în crate-ul `futures`. Funcția `select`
+> din crate-ul `futures` poate face multe lucruri pe care funcția `trpl::select` nu le poate face, dar
+> prezintă și o complexitate suplimentară pe care o putem omite deocamdată.
+
+Orice viitor poate „câștiga” în mod legitim, așa că nu are sens să returneze un
+`Result`. În schimb, `trpl::select` returnează un tip pe care nu l-am mai întâlnit până acum,
+`trpl::Either`. Tipul `Either` este oarecum similar cu un `Result` prin faptul că
+are două cazuri. Spre deosebire de `Result`, însă, în `Either` nu există noțiunea de succes sau
+eșec. În schimb, folosește `Left` și `Right` pentru a indica
+„una sau cealaltă”:
+
+```rust
+enum Either<a, b=""> {
+    Left(A),
+    Right(B),
+}
+```
+
+Funcția `select` returnează `Left` cu rezultatul acelui future dacă primul
+argument câștigă, și `Right` cu rezultatul celui de-al doilea argument future dacă _acela_
+câștigă. Acest lucru corespunde ordinii în care apar argumentele la apelarea
+funcției: primul argument se află la stânga celui de-al doilea argument.
+
+De asemenea, actualizăm `page_title` pentru a returna aceeași adresă URL transmisă. Astfel, dacă
+pagina care returnează prima nu are un `<title></title></a,>
+
+Ai creat acum un mic program de extragere de date de pe web care funcționează! Alege câteva adrese URL și rulează
+instrumentul de linie de comandă. S-ar putea să descoperi că unele site-uri sunt în mod constant mai rapide
+decât altele, în timp ce, în alte cazuri, site-ul mai rapid variază de la o execuție la alta. Mai
+important, ai învățat noțiunile de bază privind lucrul cu futures, așa că acum putem
+aprofunda ce putem face cu async.
+
+[impl-trait]: ch10-02-traits.html#traits-as-parameters
+[iterators-lazy]: ch13-02-iterators.html
+[thread-spawn]: ch16-01-threads.html#creating-a-new-thread-with-spawn
+[cli-args]: ch12-01-accepting-command-line-arguments.html
+
+<!-- TODO: map source link version to version of Rust? -->
+
+[crate-source]: https://github.com/rust-lang/book/tree/main/packages/trpl
+[futures-crate]: https://crates.io/crates/futures
+[tokio]: https://tokio.rs

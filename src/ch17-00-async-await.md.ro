@@ -61,11 +61,11 @@ API-uri ale sistemului de operare pentru interacțiunea cu rețeaua sunt însă 
 adică blochează progresul programului până când datele pe care le procesează sunt
 complet pregătite.
 
-&gt; Notă: Așa funcționează _majoritatea_ apelurilor de funcții, dacă te gândești bine. Cu toate acestea,
-&gt; termenul _blocant_ este de obicei rezervat apelurilor de funcții care interacționează cu
-&gt; fișiere, rețeaua sau alte resurse de pe computer, deoarece acestea sunt
-&gt; cazurile în care un program individual ar beneficia de faptul că operațiunea este
-&gt; _neblocantă_.
+> Notă: Așa funcționează _majoritatea_ apelurilor de funcții, dacă te gândești bine. Cu toate acestea,
+> termenul _blocant_ este de obicei rezervat apelurilor de funcții care interacționează cu
+> fișiere, rețeaua sau alte resurse de pe computer, deoarece acestea sunt
+> cazurile în care un program individual ar beneficia de faptul că operațiunea este
+> _neblocantă_.
 
 Am putea evita blocarea firului principal prin generarea unui fir dedicat pentru
 descărcarea fiecărui fișier. Totuși, suprasolicitarea resurselor de sistem utilizate de aceste
@@ -118,9 +118,7 @@ Figura 17-1).
 
 <figcaption>Figura 17-1: Un flux de lucru concurent, cu comutare între Sarcina A și Sarcina B</figcaption>
 
-</figure>
-
-Când echipa împarte un grup de sarcini, fiecare membru preluând o sarcină
+</figure>Când echipa împarte un grup de sarcini, fiecare membru preluând o sarcină
 și lucrând la ea singur, aceasta este _paralelism_. Fiecare persoană din echipă poate
 avansa exact în același timp (vezi Figura 17-2).
 
@@ -136,9 +134,7 @@ avansa exact în același timp (vezi Figura 17-2).
 
 <figcaption>Figura 17-2: Un flux de lucru paralel, în care se lucrează la Sarcina A și Sarcina B în mod independent</figcaption>
 
-</figure>
-
-În ambele fluxuri de lucru, s-ar putea să fie necesară coordonarea între diferite
+</figure>În ambele fluxuri de lucru, s-ar putea să fie necesară coordonarea între diferite
 sarcini. Poate ați crezut că sarcina atribuită unei persoane era total
 independentă de munca celorlalți, dar, de fapt, aceasta necesită ca o altă persoană
 din echipă să-și termine mai întâi sarcina. O parte din muncă ar putea fi efectuată în
@@ -157,9 +153,7 @@ serie, o sarcină după alta, așa cum se vede în Figura 17-3.
 
 <figcaption>Figura 17-3: Un flux de lucru parțial paralel, în care activitatea se desfășoară la Sarcina A și Sarcina B în mod independent până când Sarcina A3 este blocată de rezultatele Sarcinii B3.</figcaption>
 
-</figure>
-
-În mod similar, s-ar putea să-ți dai seama că una dintre propriile tale sarcini depinde de o altă
+</figure>În mod similar, s-ar putea să-ți dai seama că una dintre propriile tale sarcini depinde de o altă
 sarcină a ta. Acum, munca ta concurentă a devenit, la rândul ei, serială.
 
 Paralelismul și concurența se pot intersecta, de asemenea. Dacă afli

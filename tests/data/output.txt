@@ -1,0 +1,5 @@
+Bună, lume.
+
+<Listing number="1" file-name="test.rs" caption="Legendă de test">
+println!("Bună");
+</Listing>

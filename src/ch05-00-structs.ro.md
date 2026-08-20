@@ -1,0 +1,5 @@
+# Folosirea structurilor pentru organizarea datelor interconectate
+
+O *structură*, sau mai simplu *struct*, este un tip de date personalizat care ne permite să grupăm împreună și să denumim valorile diferite, dar conexate, într-un ansamblu unitar și însemnat. Dacă ești familiarizat cu un limbaj de programare orientat pe obiecte, o *structură* ar putea fi similară cu atributele de date ale unui obiect. În acest capitol, vom face o analiză comparativă între tuple și structuri, bazându-ne pe ceea ce deja cunoști, și vom arăta când este mai avantajos să folosim structurile pentru a grupa datele.
+
+Vom exemplifica cum se definesc și se inițializează structurile. Vom discuta cum se definesc funcțiile asociate, în special tipul de funcții asociate, cunoscute sub numele de *metode*, pentru a descrie comportamentul asociat cu un tip de structură. Structurile și enumerările (discutate în Capitolul 6) stau la baza creării de noi tipuri în domeniul propriului tău program, pentru a beneficia la maximum de verificarea tipurilor datelor în timpul compilării în limbajul Rust.

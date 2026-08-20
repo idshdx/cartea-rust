@@ -1,0 +1,5 @@
+Hello world.
+
+<Listing number="1" file-name="test.rs" caption="Test caption">
+println!("Hello");
+</Listing>

@@ -1,0 +1,3 @@
+# Înțelegerea posesiunii
+
+Posesiunea este cea mai distinctă trăsătură a Rust și are implicații profunde pentru restul limbajului. Aceasta permite Rust să facă garanții de siguranță a memoriei fără a necesita un colector de gunoi (garbage collector, GC), deci este important să înțelegi cum funcționează posesiunea. În acest capitol, vom discuta despre posesiune, dar și despre câteva caractereistici conexe: împrumutarea, secționarea și cum Rust structurează datele în memorie.
