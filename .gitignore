@@ -9,3 +9,7 @@ tmp
 .vscode
 .zed
 .env
+# Agent tooling
+.agentbridge/
+.ai/
+.junie/
